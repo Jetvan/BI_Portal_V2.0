@@ -1,0 +1,322 @@
+<div id="sysCommonReportSetting" style="display: none;" ui-sref=".sysCommonReportSetting({id:'20160927105313704'})" ui-sref-active="selected">
+    sysCommonReportSetting
+</div>
+<div id="sysDefaultReportSetting" style="display: none;"  ui-sref=".sysDefaultReportSetting({id:'20160927105422818'})" ui-sref-active="selected">
+    sysDefaultReportSetting
+</div>
+<div id="sysRefreshParameterSetting" style="display: none;"  ui-sref=".sysRefreshParameterSetting({id:'20160927105509795'})" ui-sref-active="selected">
+    sysRefreshParameterSetting
+</div>
+
+<!-- BEGIN SIDEBAR -->
+<div id="page-sidebar-wrapper" class="page-sidebar-wrapper">
+    <!-- END SIDEBAR -->
+    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+    <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+    <div class="page-sidebar navbar-collapse collapse">
+        <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-hover-submenu " data-keep-expanded="false"
+            data-auto-scroll="true" data-slide-speed="200">
+            <!--<ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-compact " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">-->
+
+        </ul>
+        <!-- END SIDEBAR MENU -->
+    </div>
+    <!-- END SIDEBAR -->
+</div>
+<!-- END SIDEBAR -->
+<!-- BEGIN CONTENT -->
+<div id="page-content-wrapper" class="page-content-wrapper">
+    <!--todo 导航标签页_begin-->
+    <!--todo 导航标签页_end-->
+    <!-- BEGIN CONTENT BODY -->
+    <div id="page-content" class="page-content">
+        <ul id="navTabsId" class="nav nav-tabs" role="tablist"
+            style="background-color: #ebebeb;padding:0;margin-bottom: 0;border-bottom: 0px">
+            <li role="presentation" class="active" id="tab_seed_mainId"
+                style="position: relative;padding:4px 20px 0px 15px;border: 0">
+                <span ui-sref=".main" ui-sref-active="selected" onclick="mainTabClick(this)" role="tab"
+                      data-toggle="tab">{{i18n('page_system_homepage')}}</span>
+                <i title="{{i18n('page_system_full_screen_display')}}" class="fa fa-search-plus"
+                   tabenlarge="enlargeMainId"
+                   onclick="closableTab.enlargeTab(this)"></i>
+                <i title="{{i18n('page_system_resume_normal_display')}}" class="fa fa-search-minus"
+                   tabenlarge="enlargeResizeId"
+                   style="display: none" onclick="closableTab.resizeTab(this)"></i>
+            </li>
+        </ul>
+        <div id="contentModelId" class="row" style="margin-left:auto;margin-right: auto">
+            <!--<div class="tab-content" style="width:100%;" ng-view>-->
+            <!--<ul>
+                <li ui-sref=".main" ui-sref-active="selected">main</li>
+                <li ui-sref=".reportTool({id:20160407141758754})"  ui-sref-active="selected">reportTool</li>
+            </ul>-->
+            <!--<div class="tab-content" style="width:100%;" ng-show="$state.includes('tab.main')" ui-view="main"></div>
+            <div class="tab-content" style="width:100%;" ng-show="$state.includes('tab.reportTool')"  ui-view="reportTool" ></div>
+            <div class="tab-content" style="width:100%;" ng-show="$state.includes('tab.reportParam')"  ui-view="reportParam" ></div>
+            <div class="tab-content" style="width:100%;" ng-show="$state.includes('tab.sysLog')"  ui-view="sysLog" ></div>
+            <div class="tab-content" style="width:100%;" ng-show="$state.includes('tab.sysUser')"  ui-view="sysUser" ></div>
+            <div class="tab-content" style="width:100%;" ng-show="$state.includes('tab.sysRole')"  ui-view="sysRole" ></div>
+            <div class="tab-content" style="width:100%;" ng-show="$state.includes('tab.sysReport')"  ui-view="sysReport" ></div>
+            <div class="tab-content" style="width:100%;" ng-show="$state.includes('tab.sysCommonReportSetting')"  ui-view="sysCommonReportSetting" ></div>
+            <div class="tab-content" style="width:100%;" ng-show="$state.includes('tab.sysDefaultReportSetting')"  ui-view="sysDefaultReportSetting" ></div>
+            <div class="tab-content" style="width:100%;" ng-show="$state.includes('tab.sysRefreshParameterSetting')"  ui-view="sysRefreshParameterSetting" ></div>
+            <div class="tab-content" style="width:100%;" ng-show="$state.includes('tab.reportList')"  ui-view="reportList" ></div>
+            &lt;!&ndash;<div class="tab-content" style="width:100%;" ng-show="$state.includes('tab.reportBusiness')"  ui-view="reportBusiness" ></div>&ndash;&gt;
+            <div class="tab-content" style="width:100%;" ng-show="$state.includes('tab.sysOther')"  ui-view="sysOther" ></div>
+            <div class="tab-content" style="width:100%;" ng-show="$state.includes('tab.reportBusiness20160918145922178')"  ui-view="reportBusiness20160918145922178" ></div>
+            <div class="tab-content" style="width:100%;" ng-show="$state.includes('tab.reportBusiness20161013123214474')"  ui-view="reportBusiness20161013123214474" ></div>
+            <div class="tab-content" style="width:100%;" ng-show="$state.includes('tab.reportBusiness20161013143246751')"  ui-view="reportBusiness20161013143246751" ></div>
+-->
+            <!--<div class="tab-content" style="width:100%;" ui-view></div>-->
+        </div>
+
+    </div>
+    <!-- END CONTENT BODY -->
+    <div class="modal fade" id="updateUserInfoModal">
+        <div class="modal-dialog">
+            <form name="updateSysUserInfoForm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">{{i18n('sys_title_dlg_edit')}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>{{i18n('page_user_loginaccount')}}</label>
+                                    <input type="text" class="form-control" ng-model="updateUserInfo.loginName"
+                                           readonly="readonly"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>{{i18n('page_user_new_fullname')}}</label>
+                                    <input type="text" name="userFullName" class="form-control"
+                                           ng-model="updateUserInfo.userFullName" readonly="readonly"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>{{i18n('page_user_new_username')}}</label>
+                                    <input type="text" name="firstName" class="form-control"
+                                           ng-model="updateUserInfo.firstName"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>{{i18n('page_user_new_usersurname')}}</label>
+                                    <input type="text" name="lastName" class="form-control"
+                                           ng-model="updateUserInfo.lastName"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>{{i18n('page_login_lbl_password')}}</label>
+                                    <input type="password" name="newPassword" class="form-control"
+                                           ng-model="updateUserInfo.newPassword"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>{{i18n('page_user_new_pwdconfirmation')}}</label>
+                                    <input type="password" name="confirmPassword" class="form-control"
+                                           ng-model="updateUserInfo.confirmPassword"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>{{i18n('page_user_email')}}</label>
+                                    <input type="text" name="userEmail" class="form-control"
+                                           ng-model="updateUserInfo.userEmail"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>{{i18n('page_user_phonenumber')}}</label>
+                                    <input type="text" name="userMobile" class="form-control"
+                                           ng-model="updateUserInfo.userMobile"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">
+                            {{i18n('page_user_close')}}
+                        </button>
+                        <button type="button" class="btn btn-preserve" ng-click="updateSysUserInfo()">
+                            {{i18n('page_sys_dlg_save')}}
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal fade" id="successUpdateModal">
+        <div class="modal-dialog prompt">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">
+                        {{i18n('page_index_menu_usermanagement')}}-{{i18n('page_sys_dlg_save')}}</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="delete-sure hintInfo"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-preserve" data-dismiss="modal" id="btnSave">
+                        {{i18n('page_sys_dlg_confirmDel')}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--提示信息-->
+    <div class="modal fade" id="tipModal">
+        <div class="modal-dialog prompt">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">
+                        {{i18n('page_index_menu_usermanagement')}}-{{i18n('page_sys_dlg_save')}}</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="delete-sure" id="tipSure"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-preserve" data-dismiss="modal" id="successBtn">
+                        {{i18n('page_sys_dlg_confirmDel')}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<!--todo 右上角按钮内容-->
+<script>
+    function initLeftMenu(menuChildObj,reportMenuType) {
+        var temp1, temp2;
+        //temp1 = '<ul class="treeview-menu">';
+        temp1 = '<ul class="sub-menu">';
+        $.each(menuChildObj, function (i, item) {
+            if (typeof menuChildObj.menuChild != 'undefined') {
+                temp1 = temp1 + '<li class="nav-item  ">';
+            } else {
+                temp1 = temp1 + '<li>';
+            }
+            if (item.menuType == '01') {
+                if (item.menuAttribute == '0') {
+                    temp1 = temp1 + '<a class="nav-link " id="' + item.id + '" href="javascript:return false;"><span class="title" id="spanId"' + item.id + '>' + item.menuName + '</span></a>';
+                } else {
+//                    temp1 = temp1 + '<a id="' + item.id + '" href="#' + item.menuUrl + '/' + item.id + '"onclick="add(this);" class="nav-link "><span class="title" id="spanId' + item.id + '">' + item.menuName + '</span></a>';
+                    var menuUrl = item.menuUrl.replace('/', '');
+//                    temp1 = temp1 + '<a ui-sref=".'+menuUrl+'({id:'+item.id +'})" ui-sref-active="selected" href="javascript:return false;" id="' + item.id + '" ' + 'onclick="add(this);" class="nav-link "><span class="title" id="spanId' + item.id + '">' + item.menuName + '</span></a>';
+                    temp1 = temp1 + '<a ui-sref=".' + menuUrl + '({id:\'' + item.id + '\'})" ui-sref-active="selected" href="javascript:return false;" reportId="'+ item.id + 'id="' + item.id + '" ' + 'onclick="add(this);" class="nav-link "><span class="title" id="spanId' + item.id + '">' + item.menuName + '</span></a>';
+
+                }
+            } else if (item.menuType == '02') {
+                if (item.menuAttribute == '0') {
+                    temp1 = temp1 + '<a class="nav-link " id="' + item.id + '" href="javascript:return false;"><span class="title" id="spanId"' + item.id + '>' + item.menuName + '</span></a>';
+                } else {
+//                    temp1 = temp1 + '<a id="' + item.id + '"  href="#/reportBusiness/' + item.id + '"onclick="add(this);" class="nav-link "><span class="title" id="spanId' + item.id + '">' + item.menuName + '</span></a>';
+//                       temp1 = temp1 + '<a ui-sref=".reportBusiness({id:'+item.id +'})" ui-sref-active="selected" href="javascript:return false;" id="' + item.id + '" ' + 'onclick="add(this);" class="nav-link "><span class="title" id="spanId' + item.id + '">' + item.menuName + '</span></a>';
+
+                    if(reportMenuType=='Default report'||reportMenuType=='Common report'){
+//                        temp1 = temp1 + '<a ui-sref=".reportBusiness' + item.id + '({id:\'' + item.id + '\'})" ui-sref-active="selected" href="javascript:return false;" reportId="'+item.id+'" onclick="add(this);" class="nav-link "><span class="title" id="spanId' + item.id + '">' + item.menuName + '</span></a>';
+                        temp1 = temp1 + '<a ui-sref=".reportBusiness' + item.id + '({id:\'' + item.id + '\'})" ui-sref-active="selected" href="javascript:return false;" reportId="'+item.id+'" onclick="add(this);" class="nav-link "><span class="title" >' + item.menuName + '</span></a>';
+
+                    }else{
+//                        temp1 = temp1 + '<a ui-sref=".reportBusiness' + item.id + '({id:\'' + item.id + '\'})" ui-sref-active="selected" href="javascript:return false;" reportId="'+item.id+'" id="' + item.id + '" ' + 'onclick="add(this);" class="nav-link "><span class="title" id="spanId' + item.id + '">' + item.menuName + '</span></a>';
+                        temp1 = temp1 + '<a ui-sref=".reportBusiness' + item.id + '({id:\'' + item.id + '\'})" ui-sref-active="selected" href="javascript:return false;" reportId="'+item.id+'" id="' + item.id + '" ' + 'onclick="add(this);" class="nav-link "><span class="title" >' + item.menuName + '</span></a>';
+                    }
+                }
+            }
+            if (typeof item.menuChild != 'undefined') {
+                temp1 = temp1 + initLeftMenu(item.menuChild,reportMenuType);
+            }
+        });
+        temp1 = temp1 + '</li></ul>';
+        return temp1;
+    }
+
+    function createLeftMenu() {
+        $.ajax({
+            url: 'sysMenu/getMenuHierarchyListByUserId.do',
+            async: false,
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                var temp1 = '';
+
+                $.each(data.userMenu, function (i, item) {
+//                       alert(item.menuName)
+                    var reportMenuType=item.menuNameEn;
+                    if ('Default report' == item.menuNameEn) {
+                        $("#navTabsId li").not(":first").remove();
+                        $("#tab_seed_mainId").addClass("active");
+                        temp1 = temp1 + '<li class="nav-item" style="display: none">';
+                    } else {
+                        temp1 = temp1 + '<li class="nav-item">';
+                    }
+                    if (item.menuChild.length > 0) {
+                        //temp1 = temp1 + '<a href="javascript:return false;" ><i class="' + item.menuIcon + '"></i> <span>' + item.menuName + '</span><i class="fa fa-angle-right pull-right"></i></a>';
+                        temp1 = temp1 + '<a href="javascript:;" class="nav-link nav-toggle"><i class="' + item.menuIcon + '"></i><span class="title">' + item.menuName + '</span><span class="arrow"></span></a>';
+
+                        temp1 = temp1 + initLeftMenu(item.menuChild,reportMenuType);
+                        if ('Default report' == item.menuNameEn) {
+                            $.each(item.menuChild, function (i, itemTemp) {
+                                var id = "tab_seed_" + itemTemp.id;
+                                if (!$('#' + id)[0]) {
+                                    var li_tab = '<li style="margin-top: 1px;padding: 2px 0px 0px 2px;" role="presentation" class="" id="' + id + '"><span onclick="controlTabClick(' + '\'' + itemTemp.id + '\'' + ')"  role="tab" data-toggle="tab" style="position: relative;padding:2px 20px 0px 15px">' + itemTemp.menuName;
+                                    li_tab = li_tab + '</span><i title="全屏显示" class="fa fa-search-plus " tabenlarge="enlarge' + id + '"  onclick="closableTab.enlargeTab(this)"></i><i title="恢复正常显示" class="fa fa-search-minus" tabenlarge="enlargeResize' + id + '" style="display: none" onclick="closableTab.resizeTab(this)"></i><i title="关闭当前窗口" class="fa fa-close small" tabclose="' + id + '"  onclick="closableTab.closeTab(this)"></i></li> ';
+
+                                    $('#navTabsId').append(li_tab);
+                                }
+                            });
+                        }
+                    } else {
+                        //temp1 = temp1 + '<a href="javascript:return false;" ><i class="' + item.menuIcon + '"></i> <span>' + item.menuName + '</span></a>';
+                        temp1 = temp1 + '<a href="javascript:;" class="nav-link nav-toggle"><i class="' + item.menuIcon + '"></i><span class="title">' + item.menuName + '</span><span class="arrow"></span></a>';
+                    }
+                    temp1 = temp1 + '</li>';
+//                       alert(temp1)
+                });
+                /*$(".sidebar-menu").empty();
+                 $(".sidebar-menu").html(temp1);*/
+                $(".page-sidebar-menu").empty();
+//                   alert(temp1)
+                $(".page-sidebar-menu").html(temp1);
+            }
+        });
+    }
+
+    function addViewDivContent() {
+        var viewDivContent = '';
+        $.each(unRepeatUserSysMenuId, function (i, menuUrl) {
+            viewDivContent = viewDivContent + '<div id="uiView'+menuUrl+'" class="tab-content" style="width:100%;" ng-show="$state.includes(\'tab.' + menuUrl + '\')" ui-view="' + menuUrl + '"></div>';
+        });
+        $.each(unRepeatUserReportMenuId, function (i, id) {
+            viewDivContent = viewDivContent + '<div id="uiViewReportBusiness'+id+'" class="tab-content" style="width:100%;" ng-show="$state.includes(\'tab.reportBusiness' + id + '\')"  ui-view="reportBusiness' + id + '" ></div>';
+        });
+        viewDivContent = viewDivContent + '<div class="tab-content" style="width:100%;" ng-show="$state.includes(\'tab.sysCommonReportSetting\')" ui-view="sysCommonReportSetting"></div>'
+                + '<div class="tab-content" style="width:100%;" ng-show="$state.includes(\'tab.sysDefaultReportSetting\')" ui-view="sysDefaultReportSetting"></div>'
+                + '<div class="tab-content" style="width:100%;" ng-show="$state.includes(\'tab.sysRefreshParameterSetting\')" ui-view="sysRefreshParameterSetting"></div>'
+                + '<div class="tab-content" style="width:100%;" ng-show="$state.includes(\'tab.main\')" ui-view="main"></div>';
+        $('#contentModelId').empty();
+        $('#contentModelId').append(viewDivContent);
+    }
+    createLeftMenu();
+    addViewDivContent();
+</script>
