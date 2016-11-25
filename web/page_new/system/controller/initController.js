@@ -163,7 +163,7 @@ infopowerWebApp.controller('mainCtrl', ['$scope', '$http', '$controller', '$rout
         $scope.reload();
         $scope.reportClicked=function(menuIdPara){
             var state='tab.reportBusiness'+menuIdPara;
-            $state.go(state,{id:menuIdPara});
+            $state.go(state,{id:menuIdPara},{reload:true});
         };
     }
 ]);

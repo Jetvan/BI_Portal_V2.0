@@ -222,7 +222,7 @@
 //                    temp1 = temp1 + '<a id="' + item.id + '" href="#' + item.menuUrl + '/' + item.id + '"onclick="add(this);" class="nav-link "><span class="title" id="spanId' + item.id + '">' + item.menuName + '</span></a>';
                     var menuUrl = item.menuUrl.replace('/', '');
 //                    temp1 = temp1 + '<a ui-sref=".'+menuUrl+'({id:'+item.id +'})" ui-sref-active="selected" href="javascript:return false;" id="' + item.id + '" ' + 'onclick="add(this);" class="nav-link "><span class="title" id="spanId' + item.id + '">' + item.menuName + '</span></a>';
-                    temp1 = temp1 + '<a ui-sref=".' + menuUrl + '({id:\'' + item.id + '\'})" ui-sref-active="selected" href="javascript:return false;" reportId="'+ item.id + 'id="' + item.id + '" ' + 'onclick="add(this);" class="nav-link "><span class="title" id="spanId' + item.id + '">' + item.menuName + '</span></a>';
+                    temp1 = temp1 + '<a ui-sref=".' + menuUrl + '({id:\'' + item.id + '\'})" ui-sref-active="selected" href="javascript:return false;" reportId="'+ item.id + '" id="' + item.id + '" ' + 'onclick="add(this);" class="nav-link "><span class="title" id="spanId' + item.id + '">' + item.menuName + '</span></a>';
 
                 }
             } else if (item.menuType == '02') {
@@ -298,6 +298,8 @@
                 $(".page-sidebar-menu").empty();
 //                   alert(temp1)
                 $(".page-sidebar-menu").html(temp1);
+
+
             }
         });
     }

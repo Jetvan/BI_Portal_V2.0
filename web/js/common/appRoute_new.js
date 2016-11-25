@@ -14,7 +14,8 @@ infopowerWebApp.run(function ($state, $rootScope) {
             if (''==fromState.name){
                 $state.go('tab.main');
              }
-        })
+            //$templateCache.removeAll();
+        });
 
     /*$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
         //alert($rootScope.$state)
@@ -37,7 +38,6 @@ infopowerWebApp.run(function ($state, $rootScope) {
     });*/
 })
 
-
 infopowerWebApp.config(['$routeProvider', '$stateProvider', '$stickyStateProvider', '$urlRouterProvider',
     function ($routeProvider, $stateProvider, $stickyStateProvider, $urlRouterProvider) {
         //alert($('#page-sidebar-wrapper').text());
@@ -46,12 +46,14 @@ infopowerWebApp.config(['$routeProvider', '$stateProvider', '$stickyStateProvide
         $stateProvider.state('tab', {
             url: '/',
             sticky: true,
-            dsr: true,
+            //dsr: true,
             templateUrl: 'page_new/system/view/index.html',
             controller: 'indexCtrl'
         });
         $stateProvider.state('tab.main', {
             url: '/main',
+            sticky: true,
+            //dsr: true,
             views: {
                 'main': {
                     templateUrl: 'page_new/system/view/main.html',
@@ -68,9 +70,21 @@ infopowerWebApp.config(['$routeProvider', '$stateProvider', '$stickyStateProvide
                 }
             }
         });
+
+        $stateProvider.state('tab.changeSateTest', {
+            url:'/changeSateTest/:id',
+            sticky: true,
+            views: {
+                'changeSateTest': {
+                    templateUrl: 'page_new/system/view/changeSateTest.html',
+                    controller: 'changeSateTestCtrl'
+                }
+            }
+        });
         $stateProvider.state('tab.reportTool', {
             url: '/reportTool/:id',
             sticky: true,
+            //dsr: true,
             views: {
                 'reportTool': {
                     templateUrl: 'page_new/report/view/reportTool.html',
@@ -78,9 +92,11 @@ infopowerWebApp.config(['$routeProvider', '$stateProvider', '$stickyStateProvide
                 }
             }
         });
+
         $stateProvider.state('tab.reportParam', {
             url: '/reportParam/:id',
             sticky: true,
+            //dsr: true,
             views: {
                 'reportParam': {
                     templateUrl: 'page_new/report/view/reportParam.html',
@@ -117,7 +133,7 @@ infopowerWebApp.config(['$routeProvider', '$stateProvider', '$stickyStateProvide
         });
         $stateProvider.state('tab.sysReport', {
             url: '/sysReport/:id',
-            sticky: true,
+            //sticky: true,
             views: {
                 'sysReport': {
                     templateUrl: 'page_new/system/view/sysReport.html',

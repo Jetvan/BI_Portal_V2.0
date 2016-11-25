@@ -8,6 +8,7 @@
 
     function iFrameHeight() {
         var ifm = document.getElementById("reportContent2");
+//        var ifm = $("iframe[id^='reportContent2']");
         var subWeb = document.frames ? document.frames["reportContent2"].document : ifm.contentDocument;
         if (ifm != null && subWeb != null) {
             ifm.height = subWeb.body.scrollHeight;
@@ -16,9 +17,9 @@
     }
 
     function addGolablRefreshParam() {
-        /*$.each(selectRefreshParamMap,function(key,values){
+        $.each(selectRefreshParamMap,function(key,values){
          alert(key+':'+values)
-         });*/
+         });
         var strMap = JSON.stringify(selectRefreshParamMap);
         var interfaceName = 'sysUserPersonalizedSetting/confirmGlobalRefreshParamSetting.do';
         $.ajax({
@@ -28,7 +29,21 @@
             data: {selectRefreshParamMap: strMap},
             dataType: "json",
             success: function (data) {
-                $('#reportContentCtrlId').click();
+                $.ajax({
+                    url: 'sysMenu/getReportMenuPage.do',
+                    async: false,
+                    type: "GET",
+                    data:{menuId: selectRefreshParamMap['menuid']},
+                    dataType: "json",
+                    success: function (data) {
+                        alert("哈哈终于成功了:"+data.reqLocation+'%%%');
+                        if(data.reqLocation!=null&&data.reqLocation.trim()!='') {
+                            var temp = "#reportContent2" + selectRefreshParamMap['menuid'];
+//                        $(temp).attr('src','http://mil.news.sina.com.cn/');
+                            $(temp).attr('src', data.reqLocation);
+                        }
+                    }
+                })
             }
         });
     }

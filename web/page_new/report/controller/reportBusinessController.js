@@ -1,17 +1,31 @@
 /**
  * 报表业务展现JS/controller
  */
-infopowerWebApp.controller('reportBusinessCtrl', ['$scope', '$http', '$controller', '$routeParams','$route','$stateParams',
-    function ($scope, $http, $controller, $routeParams,$route,$stateParams) {
+infopowerWebApp.controller('reportBusinessCtrl', ['$scope', '$http', '$controller', '$routeParams','$route','$stateParams','$state',
+    function ($scope, $http, $controller, $routeParams,$route,$stateParams,$state) {
         $controller('baseCtrl', {$scope: $scope, $http: $http});
         //$scope.menuid = $routeParams.id;
         $scope.menuid = $stateParams.id;
+        selectRefreshParamMap['menuid']=$scope.menuid;
         //alert("$scope.menuid:"+$scope.menuid);
         $("head").append("<link id='multiselectCss' rel='stylesheet' type='text/css' href='js/bootstrapMultiselect/bootstrap-multiselect.css' />");
         $("head").append("<script id='multiselectJs' type='text/javascript' src='js/bootstrapMultiselect/bootstrap-multiselect.js'></script>");
 
-        $scope.reloadRoute = function() {
+        /*$scope.reloadRoute = function() {
             $route.reload();
+        }*/
+
+        $scope.reloadRoute = function() {
+            /*//alert('dfsf');
+            //$state.reload('tab.reportTool');
+            //$state.go(".",{id:'ssdsd'},{reload:true});
+            //alert('33')
+            var temp="tab.reportBusiness"+$scope.menuid;
+            alert('goto:'+temp)
+            var idTemp=$scope.menuid+'';
+            $state.go("tab.reportBusiness20161013123214474",{id:'20161013123214474'});
+            //$state.reload();
+            //$state.go("tab.reportTool",{id:'ssdsd'});*/
         }
 
         $scope.reload = function () {
@@ -254,19 +268,26 @@ infopowerWebApp.controller('reportBusinessCtrl', ['$scope', '$http', '$controlle
             var pageContent = '<div id="load'+$scope.menuid+'" align="center" style="position: fixed;top: 60%;left: 50%;width:50%;height: 50%;-webkit-transform: translateX(-50%) translateY(-50%);" xmlns="http://www.w3.org/1999/html"><div><img src="static/img/loadReport/progressbar.gif" ></div><div>loading...</div></div></div>';
             $('#reportContent'+$scope.menuid).html(pageContent);
             $scope.getApi('sysMenu/getReportMenuPage.do', {menuId: $scope.menuid}, function (datas) {
-                //alert(datas.reqLocation);
+                alert(datas.reqLocation);
                 console.log('reqLocation:' + datas.reqLocation);
 
                 if (datas.reqStatus == "0") {
-                    pageContent = '<iframe id="reportContent2'+$scope.menuid+'" name="reportContent2"   src="' + datas.reqLocation + '" frameborder="no" border="0px" width="100%" height="100%"  margin="0px" ></iframe>';
+                    pageContent = '<iframe id="reportContent2'+$scope.menuid+'" name="reportContent2"   src="' + datas.reqLocation + '" frameborder="no" border="0px" width="100%" height="85%"  margin="0px" ></iframe>';
                     $('#reportContent'+$scope.menuid).append(pageContent);
                 } else {
                     //pageContent = '<iframe id="reportContent2" name="reportContent2" style="padding-left: 10px;"  src="common/error_new.jsp" frameborder="no" border="0px" width="100%" height="100%" margin="0px" ></iframe>';
-                    pageContent = '<iframe id="reportContent2'+$scope.menuid+'" name="reportContent2" style="padding-left: 10px;"  src="http://www.sina.com.cn/" frameborder="no" border="0px" width="100%" height="100%" margin="0px" ></iframe>';
+                    pageContent = '<iframe id="reportContent2'+$scope.menuid+'" name="reportContent2"   src="http://www.sina.com.cn/" frameborder="no" border="0px" width="100%" height="100%" margin="0px" ></iframe>';
                     $('#reportContent'+$scope.menuid).append(pageContent);
                 }
+               /* var ifm = document.getElementById("reportContent2"+$scope.menuid);
+                var subWeb = document.frames ? document.frames["reportContent2"+$scope.menuid].document : ifm.contentDocument;
+                if (ifm != null && subWeb != null) {
+                    ifm.height = subWeb.body.scrollHeight;
+                    ifm.width = subWeb.body.scrollWidth;
+                }*/
                 /*进度条*/
                 var iframe01 = document.getElementById("reportContent2"+$scope.menuid);
+
                 var load01 = document.getElementById("load"+$scope.menuid);
                 iframe01.style.display = "none";
                 if (iframe01.attachEvent) {

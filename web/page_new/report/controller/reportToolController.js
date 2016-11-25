@@ -2,8 +2,8 @@
  * 报表工具js/controller
  */
 
-infopowerWebApp.controller('reportToolCtrl', ['$scope','$http','$controller','$routeParams','$stateParams',
-    function($scope,$http,$controller,$routeParams,$stateParams) {
+infopowerWebApp.controller('reportToolCtrl', ['$scope','$http','$controller','$routeParams','$stateParams','$route','$state',
+    function($scope,$http,$controller,$routeParams,$stateParams,$route,$state) {
 		
 		//获取全局变量菜单ID
 		//$scope.menuid = $routeParams.id;
@@ -17,7 +17,7 @@ infopowerWebApp.controller('reportToolCtrl', ['$scope','$http','$controller','$r
         	$scope.queryData('reportTool/getReportToolListByPage.do?menuId='+ $scope.menuid+'&isLoged='+isLoged,p,$scope.search);
         	
         };
-        
+
         //列表页下拉框绑定
         var dicCode='report_tool_category';
 		var objTypesList=getDicType(dicCode);
