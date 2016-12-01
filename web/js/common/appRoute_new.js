@@ -16,26 +16,6 @@ infopowerWebApp.run(function ($state, $rootScope) {
              }
             //$templateCache.removeAll();
         });
-
-    /*$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
-        //alert($rootScope.$state)
-        /!*if($rootScope.$state.includes(toState.name) ){
-            alert('hasContains')
-        }*!/
-        alert('fromState:'+fromState.name+'%%%');
-        console.log('fromState:'+fromState.name)
-        alert('toState:'+toState.name);
-        console.log('toState:'+toState.name);
-        /!*if (''==fromState.name){
-            //event.preventDefault();
-            $rootScope.$on('$viewContentLoaded',function(event){
-
-                $state.go('tab.main')
-            });
-        }*!/
-        //event.preventDefault();
-
-    });*/
 })
 
 infopowerWebApp.config(['$routeProvider', '$stateProvider', '$stickyStateProvider', '$urlRouterProvider',
@@ -52,7 +32,7 @@ infopowerWebApp.config(['$routeProvider', '$stateProvider', '$stickyStateProvide
         });
         $stateProvider.state('tab.main', {
             url: '/main',
-            sticky: true,
+            //sticky: true,
             //dsr: true,
             views: {
                 'main': {
@@ -70,20 +50,9 @@ infopowerWebApp.config(['$routeProvider', '$stateProvider', '$stickyStateProvide
                 }
             }
         });
-
-        $stateProvider.state('tab.changeSateTest', {
-            url:'/changeSateTest/:id',
-            sticky: true,
-            views: {
-                'changeSateTest': {
-                    templateUrl: 'page_new/system/view/changeSateTest.html',
-                    controller: 'changeSateTestCtrl'
-                }
-            }
-        });
         $stateProvider.state('tab.reportTool', {
             url: '/reportTool/:id',
-            sticky: true,
+            //sticky: true,
             //dsr: true,
             views: {
                 'reportTool': {
@@ -95,7 +64,7 @@ infopowerWebApp.config(['$routeProvider', '$stateProvider', '$stickyStateProvide
 
         $stateProvider.state('tab.reportParam', {
             url: '/reportParam/:id',
-            sticky: true,
+            //sticky: true,
             //dsr: true,
             views: {
                 'reportParam': {

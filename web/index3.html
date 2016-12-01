@@ -94,7 +94,7 @@ License: You must have a valid license purchased only from themeforest(the above
             <a>
                 <img src="assets/layouts/layout2/img/logo-default.png" alt="logo" class="logo-default"/>
             </a>
-            <div class="menu-toggler sidebar-toggler">
+            <div class="menu-toggler sidebar-toggler menu-toggler-left" onclick="cutChangeClicked(this)">
                 <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
             </div>
         </div>
@@ -129,7 +129,7 @@ License: You must have a valid license purchased only from themeforest(the above
             </form>-->
             <!-- END HEADER SEARCH BOX -->
             <!-- BEGIN TOP NAVIGATION MENU -->
-            <div class="top-menu">
+            <div class="top-menu" style="z-index:999">
 
                 <button id="view-fullscreen" style="display: none;">Fullscreen</button>
                 <button id="cancel-fullscreen" style="display: none;">cancel-fullscreen</button>
@@ -234,6 +234,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     data-handle-color="#637283">
                                     <li>
                                         <a id="20160927105313704" href="javascript:return false;"
+                                           reportId="20160927105313704"
                                            personalSettingItem="sysCommonReportSetting"
                                            onclick="add(this);">
                                                     <span id="spanId20160927105313704" class="task">
@@ -246,6 +247,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </li>
                                     <li>
                                         <a id="20160927105422818" href="javascript:return false;"
+                                           reportId="20160927105422818"
                                            personalSettingItem="sysDefaultReportSetting"
                                            onclick="add(this);">
                                                     <span id="spanId20160927105422818" class="task">
@@ -257,6 +259,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </li>
                                     <li>
                                         <a id="20160927105509795" href="javascript:return false;"
+                                           reportId="20160927105509795"
                                            personalSettingItem="sysRefreshParameterSetting"
                                            onclick="add(this);">
                                                     <span id="spanId20160927105509795" class="task">
@@ -330,7 +333,26 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- END HEADER & CONTENT DIVIDER -->
 <!-- BEGIN CONTAINER -->
 
-<div id="page-container" class="page-container" ui-view></div>
+<!--<div id="page-container" class="page-container" ui-view></div>-->
+<div id="page-container" class="page-container" >
+    <div id="page-sidebar-wrapper" class="page-sidebar-wrapper">
+        <!-- END SIDEBAR -->
+        <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+        <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+        <div class="page-sidebar navbar-collapse collapse" style="position: fixed !important;z-index:999">
+            <!--<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 599px;">-->
+            <!--<ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-hover-submenu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">-->
+            <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-compact " >
+
+            </ul>
+                <!--</div>-->
+            <!-- END SIDEBAR MENU -->
+        </div>
+        <!-- END SIDEBAR -->
+    </div>
+    <div id="page-content-wrapper" class="page-content-wrapper" ui-view>
+    </div>
+</div>
 
 <a href="javascript:;" class="page-quick-sidebar-toggler">
     <i class="icon-login"></i>
@@ -385,13 +407,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <option value="boxed">Boxed</option>
                                 </select>
                             </div>
-                            <!--<div class="theme-option">
+                            <div class="theme-option">
                                 <span> {{i18n('page_system_settings_header')}} </span>
                                 <select class="page-header-option form-control input-small">
                                     <option value="fixed" selected="selected">Fixed</option>
                                     <option value="default">Default</option>
                                 </select>
-                            </div>-->
+                            </div>
                             <div class="theme-option">
                                 <span>{{i18n('page_system_settings_top_dropdown')}}</span>
                                 <select class="page-header-top-dropdown-style-option form-control input-small">

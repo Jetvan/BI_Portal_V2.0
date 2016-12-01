@@ -6,7 +6,7 @@ infopowerWebApp.controller('initCtrl', ['$scope', '$http', '$controller', '$rout
         $controller('baseCtrl', {$scope: $scope, $http: $http});
 
         $scope.reload = function () {
-            //$scope.createLeftMenu();
+            $scope.createLeftMenu();
 
             $.ajax({
                 url: 'sysUsers/isOnline.do',
@@ -161,10 +161,10 @@ infopowerWebApp.controller('mainCtrl', ['$scope', '$http', '$controller', '$rout
             })*/
         }
         $scope.reload();
-        $scope.reportClicked=function(menuIdPara){
+        /*$scope.reportClicked=function(menuIdPara){
             var state='tab.reportBusiness'+menuIdPara;
             $state.go(state,{id:menuIdPara},{reload:true});
-        };
+        };*/
     }
 ]);
 

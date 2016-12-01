@@ -1,9 +1,13 @@
 <script type="application/javascript">
     /*用于保存已选的刷新参数，此处选择map集合*/
-    var selectRefreshParamMap = {};
+    var globalMenuId=null;
 
-    function onSingleSelChangeForGlobal(objSel) {
-        selectRefreshParamMap[$(objSel).attr('id')] = $(objSel).val();
+    function onSingleSelChangeForGlobal(objSel,id) {
+//        selectRefreshParamMap[$(objSel).attr('id')] = $(objSel).val();
+       /* alert('id:'+id)
+        alert('singleSel:'+$(objSel).val())*/
+        $('#'+globalMenuId+'paramSelect'+id).attr("value",$(objSel).val());
+        selectRefreshParamMap[id] = $(objSel).val();
     }
 
     function iFrameHeight() {
@@ -17,6 +21,12 @@
     }
 
     function addGolablRefreshParam() {
+        alert('currentglobalMenuId:'+globalMenuId)
+        var selectRefreshParamMap = {};
+        $('#paramSelectContent'+globalMenuId).find('input:hidden').each(function(index,obj){
+//            alert(obj.name+':'+obj.value)
+            selectRefreshParamMap[obj.name]=obj.value;
+        });
         $.each(selectRefreshParamMap,function(key,values){
          alert(key+':'+values)
          });
@@ -33,12 +43,12 @@
                     url: 'sysMenu/getReportMenuPage.do',
                     async: false,
                     type: "GET",
-                    data:{menuId: selectRefreshParamMap['menuid']},
+                    data:{menuId: globalMenuId},
                     dataType: "json",
                     success: function (data) {
                         alert("哈哈终于成功了:"+data.reqLocation+'%%%');
                         if(data.reqLocation!=null&&data.reqLocation.trim()!='') {
-                            var temp = "#reportContent2" + selectRefreshParamMap['menuid'];
+                            var temp = "#reportContent2" + globalMenuId;
 //                        $(temp).attr('src','http://mil.news.sina.com.cn/');
                             $(temp).attr('src', data.reqLocation);
                         }
@@ -62,7 +72,6 @@
     </div>
 </div>-->
 <!--<div id="reportContent" name="reportContent"></div>-->
-
 
 <!--<button id="reportContentCtrlId"  style="display: none" ng-click="reloadRoute()" class="navbar-brand" title="home"-->
 <button style="display: none" ng-click="reloadRoute()" class="navbar-brand" title="home"

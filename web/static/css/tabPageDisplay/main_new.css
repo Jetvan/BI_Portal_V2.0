@@ -70,4 +70,10 @@
 #navTabsId.nav-tabs>li>i{
     color:#8A8A8A
 }
+.page-header.navbar .menu-toggler-left{
+    background-image: url("/static/img/index/menu/left.png");
+}
+.page-header.navbar .menu-toggler-right{
+    background-image: url("/static/img/index/menu/right.png");
+}
 

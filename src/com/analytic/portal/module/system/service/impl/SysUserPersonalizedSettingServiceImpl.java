@@ -156,9 +156,9 @@ public class SysUserPersonalizedSettingServiceImpl implements SysUserPersonalize
         Map map = new HashMap<>();
         try {
             for (Map.Entry<String,Object> entry : selectRefreshParamMap.entrySet()) {
-                if ("menuid".equals(entry.getKey())){
+                /*if ("menuid".equals(entry.getKey())){
                     continue;
-                }
+                }*/
                 if (entry.getValue()!=null&&!"".equals(entry.getValue())){
                     /*设置刷新值*/
                     String refreshValue="";

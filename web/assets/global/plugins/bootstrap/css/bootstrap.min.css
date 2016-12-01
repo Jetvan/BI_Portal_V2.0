@@ -4100,7 +4100,7 @@ tbody.collapse.in {
 
 .nav-tabs > li {
     float: left;
-    margin-bottom: -1px
+    /*margin-bottom: -1px*/
 }
 
 .nav-tabs > li > a {

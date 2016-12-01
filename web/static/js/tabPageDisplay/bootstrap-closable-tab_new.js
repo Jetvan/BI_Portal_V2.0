@@ -1,6 +1,7 @@
 function add(obj){
 	//var id = obj.id;
 	var id = $(obj).attr('reportId');
+	globalMenuId=id;
 	//var name = obj.innerHTML;
 	var name = $(obj).text();
 	var uri = obj.href;
@@ -11,16 +12,20 @@ function add(obj){
 	//alert('obj.personalSettingItem:'+personalSettingItemId);
 	if (personalSettingItemId!=null) {
 		$('#'+personalSettingItemId).click();
+	}else{
+		$('#'+id+'ForShowId').click();
 	}
 }
 
 function addForIndex(obj){
 	var id = $(obj).attr('reportOfIndexId');
+	alert("reportOfIndexId:"+id)
 	var name = obj.innerHTML;
 	var uri = obj.href;
 //				var item2 = {'id':'2','name':'首页22','url':'#/reportTool/20160407141758754','closable':true};
 	var item2 = {'id':id,'name':name,'url':uri,'closable':true};
 	closableTab.addTab(item2);
+	controlTabClick(id);
 }
 function  mainTabClick(thisObj) {
 	$("li[id^=tab_seed_]").removeClass("active");
@@ -64,7 +69,7 @@ var closableTab = {
 		$("li[id^=tab_seed_]").removeClass("active");
 
 		if(!$('#'+id)[0]){
-			var li_tab = '<li style="margin-top: 1px;padding: 2px 0px 0px 2px;" role="presentation" class="" id="'+id+'"><span onclick="controlTabClick('+'\''+tabItem.id+'\''+')"  role="tab" data-toggle="tab" style="position: relative;padding:2px 20px 0px 15px">'+tabItem.name;
+			var li_tab = '<li style="padding: 2px 0px 0px 2px;" role="presentation" class="" id="'+id+'"><span onclick="controlTabClick('+'\''+tabItem.id+'\''+')"  role="tab" data-toggle="tab" style="position: relative;padding:2px 20px 0px 15px">'+tabItem.name;
 			if(tabItem.closable){
 				li_tab = li_tab + '</span><i title="放大显示" class="fa fa-search-plus" tabenlarge="enlarge'+id+'"  onclick="closableTab.enlargeTab(this)"></i><i title="恢复正常显示" class="fa fa-search-minus" tabenlarge="enlargeResize'+id+'" style="display: none" onclick="closableTab.resizeTab(this)"></i><i title="关闭当前窗口" class="fa fa-close small" tabclose="'+id+'" style="position: relative;"  onclick="closableTab.closeTab(this)"></i></li> ';
 			}else{

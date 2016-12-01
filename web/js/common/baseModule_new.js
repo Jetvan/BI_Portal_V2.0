@@ -295,7 +295,7 @@ baseModule.controller('baseCtrl', ['$scope', '$http',
         /*
          * 循环遍历生成左侧菜单
          * */
-        $scope.initLeftMenu = function (menuChildObj) {
+        $scope.initLeftMenu = function (menuChildObj,reportMenuType) {
             var temp1, temp2;
             //temp1 = '<ul class="treeview-menu">';
             temp1 = '<ul class="sub-menu">';
@@ -312,7 +312,8 @@ baseModule.controller('baseCtrl', ['$scope', '$http',
                         temp1 = temp1 + '<a class="nav-link " id="' + item.id + '" href="javascript:return false;"><span class="title" id="spanId"' + item.id + '>' + item.menuName + '</span></a>';
                     } else {
                         //temp1 = temp1 + '<a id="' + item.id + '" href="#' + item.menuUrl + '/' + item.id + '"onclick="add(this);"><span id="spanId' + item.id + '">' + item.menuName + '</span></a>';
-                        temp1 = temp1 + '<a id="' + item.id + '" href="#' + item.menuUrl + '/' + item.id + '"onclick="add(this);" class="nav-link "><span class="title" id="spanId' + item.id + '">' + item.menuName + '</span></a>';
+                        //temp1 = temp1 + '<a id="' + item.id + '" href="#' + item.menuUrl + '/' + item.id + '"onclick="add(this);" class="nav-link "><span class="title" id="spanId' + item.id + '">' + item.menuName + '</span></a>';
+                        temp1 = temp1 + '<a  href="javascript:return false;" reportId="'+ item.id + '" id="' + item.id + '" ' + 'onclick="add(this);" class="nav-link "><span class="title" id="spanId' + item.id + '">' + item.menuName + '</span></a>';
                     }
                 } else if (item.menuType == '02') {
                     if (item.menuAttribute == '0') {
@@ -320,12 +321,17 @@ baseModule.controller('baseCtrl', ['$scope', '$http',
                         temp1 = temp1 + '<a class="nav-link " id="' + item.id + '" href="javascript:return false;"><span class="title" id="spanId"' + item.id + '>' + item.menuName + '</span></a>';
                     } else {
                         //temp1 = temp1 + '<a id="' + item.id + '"  href="#/reportBusiness/' + item.id + '"onclick="add(this);"><span id="spanId' + item.id + '">' + item.menuName + '</span></a>';
-                        temp1 = temp1 + '<a id="' + item.id + '"  href="#/reportBusiness/' + item.id + '"onclick="add(this);" class="nav-link "><span class="title" id="spanId' + item.id + '">' + item.menuName + '</span></a>';
+                        //temp1 = temp1 + '<a id="' + item.id + '"  href="#/reportBusiness/' + item.id + '"onclick="add(this);" class="nav-link "><span class="title" id="spanId' + item.id + '">' + item.menuName + '</span></a>';
+                        if(reportMenuType=='Default report'||reportMenuType=='Common report'){
+                            temp1 = temp1 + '<a  href="javascript:return false;' + item.id + '" reportId="'+item.id+'" onclick="add(this);" class="nav-link "><span class="title">' + item.menuName + '</span></a>';
+                        }else{
+                            temp1 = temp1 + '<a id="' + item.id + '"  href="javascript:return false;' + item.id + '" reportId="'+item.id+'" onclick="add(this);" class="nav-link "><span class="title">' + item.menuName + '</span></a>';
 
+                        }
                     }
                 }
                 if (typeof item.menuChild != 'undefined') {
-                    temp1 = temp1 + $scope.initLeftMenu(item.menuChild);
+                    temp1 = temp1 + $scope.initLeftMenu(item.menuChild,reportMenuType);
                 }
             });
             temp1 = temp1 + '</li></ul>';
@@ -338,6 +344,7 @@ baseModule.controller('baseCtrl', ['$scope', '$http',
                 console.log(data)
                 var temp1 = '';
                 $.each(data.userMenu, function (i, item) {
+                    var reportMenuType=item.menuNameEn;
                     if ('Default report' == item.menuNameEn) {
                         $("#navTabsId li").not(":first").remove();
                         $("#tab_seed_mainId").addClass("active");
@@ -349,7 +356,7 @@ baseModule.controller('baseCtrl', ['$scope', '$http',
                         //temp1 = temp1 + '<a href="javascript:return false;" ><i class="' + item.menuIcon + '"></i> <span>' + item.menuName + '</span><i class="fa fa-angle-right pull-right"></i></a>';
                         temp1 = temp1 + '<a href="javascript:;" class="nav-link nav-toggle"><i class="' + item.menuIcon + '"></i><span class="title">' + item.menuName + '</span><span class="arrow"></span></a>';
 
-                        temp1 = temp1 + $scope.initLeftMenu(item.menuChild);
+                        temp1 = temp1 + $scope.initLeftMenu(item.menuChild,reportMenuType);
                         if ('Default report' == item.menuNameEn) {
                             $.each(item.menuChild, function (i, itemTemp) {
                                 var id = "tab_seed_" + itemTemp.id;
@@ -361,6 +368,50 @@ baseModule.controller('baseCtrl', ['$scope', '$http',
                                 }
                             });
                         }
+                    } else {
+                        //temp1 = temp1 + '<a href="javascript:return false;" ><i class="' + item.menuIcon + '"></i> <span>' + item.menuName + '</span></a>';
+                        temp1 = temp1 + '<a href="javascript:;" class="nav-link nav-toggle"><i class="' + item.menuIcon + '"></i><span class="title">' + item.menuName + '</span><span class="arrow"></span></a>';
+                    }
+                    temp1 = temp1 + '</li>';
+                });
+                /*$(".sidebar-menu").empty();
+                 $(".sidebar-menu").html(temp1);*/
+                $(".page-sidebar-menu").empty();
+                $(".page-sidebar-menu").html(temp1);
+            });
+        };
+
+        $scope.createLeftMenuForPersonalSetting = function () {
+            //$(".sidebar-menu").empty();
+            $scope.getApi('sysMenu/getMenuHierarchyListByUserId.do', {}, function (data) {
+                //$scope.datas = data;
+                console.log(data)
+                var temp1 = '';
+                $.each(data.userMenu, function (i, item) {
+                    var reportMenuType=item.menuNameEn;
+                    if ('Default report' == item.menuNameEn) {
+                        //$("#navTabsId li").not(":first").remove();
+                        //$("#tab_seed_mainId").addClass("active");
+                        temp1 = temp1 + '<li class="nav-item" style="display: none">';
+                    } else {
+                        temp1 = temp1 + '<li class="nav-item">';
+                    }
+                    if (item.menuChild.length > 0) {
+                        //temp1 = temp1 + '<a href="javascript:return false;" ><i class="' + item.menuIcon + '"></i> <span>' + item.menuName + '</span><i class="fa fa-angle-right pull-right"></i></a>';
+                        temp1 = temp1 + '<a href="javascript:;" class="nav-link nav-toggle"><i class="' + item.menuIcon + '"></i><span class="title">' + item.menuName + '</span><span class="arrow"></span></a>';
+
+                        temp1 = temp1 + $scope.initLeftMenu(item.menuChild,reportMenuType);
+                        /*if ('Default report' == item.menuNameEn) {
+                            $.each(item.menuChild, function (i, itemTemp) {
+                                var id = "tab_seed_" + itemTemp.id;
+                                if (!$('#' + id)[0]) {
+                                    var li_tab = '<li style="margin-top: 1px;padding: 2px 0px 0px 2px;" role="presentation" class="" id="' + id + '"><span onclick="controlTabClick(' + '\'' + itemTemp.id + '\'' + ')"  role="tab" data-toggle="tab" style="position: relative;padding:2px 20px 0px 15px">' + itemTemp.menuName;
+                                    li_tab = li_tab + '</span><i title="全屏显示" class="fa fa-search-plus " tabenlarge="enlarge' + id + '"  onclick="closableTab.enlargeTab(this)"></i><i title="恢复正常显示" class="fa fa-search-minus" tabenlarge="enlargeResize' + id + '" style="display: none" onclick="closableTab.resizeTab(this)"></i><i title="关闭当前窗口" class="fa fa-close small" tabclose="' + id + '"  onclick="closableTab.closeTab(this)"></i></li> ';
+
+                                    $('#navTabsId').append(li_tab);
+                                }
+                            });
+                        }*/
                     } else {
                         //temp1 = temp1 + '<a href="javascript:return false;" ><i class="' + item.menuIcon + '"></i> <span>' + item.menuName + '</span></a>';
                         temp1 = temp1 + '<a href="javascript:;" class="nav-link nav-toggle"><i class="' + item.menuIcon + '"></i><span class="title">' + item.menuName + '</span><span class="arrow"></span></a>';

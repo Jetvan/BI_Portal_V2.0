@@ -6,7 +6,8 @@ infopowerWebApp.controller('reportBusinessCtrl', ['$scope', '$http', '$controlle
         $controller('baseCtrl', {$scope: $scope, $http: $http});
         //$scope.menuid = $routeParams.id;
         $scope.menuid = $stateParams.id;
-        selectRefreshParamMap['menuid']=$scope.menuid;
+        //selectRefreshParamMap['menuid']=$scope.menuid;
+        globalMenuId=$scope.menuid;
         //alert("$scope.menuid:"+$scope.menuid);
         $("head").append("<link id='multiselectCss' rel='stylesheet' type='text/css' href='js/bootstrapMultiselect/bootstrap-multiselect.css' />");
         $("head").append("<script id='multiselectJs' type='text/javascript' src='js/bootstrapMultiselect/bootstrap-multiselect.js'></script>");
@@ -46,6 +47,9 @@ infopowerWebApp.controller('reportBusinessCtrl', ['$scope', '$http', '$controlle
             var reportContent='<div id="reportContent'+$scope.menuid+'" name="reportContent"></div>';
             $('#uiViewReportBusiness'+$scope.menuid).append(reportContent);
 
+            var paramSelectContent='<div id="paramSelectContent'+$scope.menuid+'"></div>';
+            $('#uiViewReportBusiness'+$scope.menuid).append(paramSelectContent);
+
             $('#uiViewReportBusiness'+$scope.menuid).find('.navbar-brand').attr('id','reloadCurrentPage'+$scope.menuid);
 
             $scope.getApi('sysUserPersonalizedSetting/getGlobalParamOfUserList.do', {menuId: $scope.menuid}, function (datas) {
@@ -75,9 +79,11 @@ infopowerWebApp.controller('reportBusinessCtrl', ['$scope', '$http', '$controlle
                     for (var i in paramResultDatas) {
                         if(paramResultDatas[i].refreshValue!=null&&paramResultDatas[i].refreshValue.trim()!='') {
                             if (paramResultDatas[i].paramOperatType == '0') {         //单选
-                                selectRefreshParamMap[paramResultDatas[i].id] = paramResultDatas[i].refreshValue;
+                                $('#paramSelectContent'+$scope.menuid).append('<input type="hidden" paramOperatType="0" id="'+$scope.menuid+'paramSelect'+paramResultDatas[i].id+'" paramSelectId="'+paramResultDatas[i].id+'" name="'+paramResultDatas[i].id+'" value="'+paramResultDatas[i].refreshValue+'"/>');
+                                //selectRefreshParamMap[paramResultDatas[i].id] = paramResultDatas[i].refreshValue;
                             } else if (paramResultDatas[i].paramOperatType == '1') {  //多选
-                                selectRefreshParamMap[paramResultDatas[i].id] = paramResultDatas[i].refreshValue.split(',');
+                                $('#paramSelectContent'+$scope.menuid).append('<input type="hidden" paramOperatType="1" id="'+$scope.menuid+'paramSelect'+paramResultDatas[i].id+'" paramSelectId="'+paramResultDatas[i].id+'" name="'+paramResultDatas[i].id+'" value="'+paramResultDatas[i].refreshValue+'"/>');
+                                //selectRefreshParamMap[paramResultDatas[i].id] = paramResultDatas[i].refreshValue.split(',');
                             }
                         }
                     }
@@ -89,8 +95,8 @@ infopowerWebApp.controller('reportBusinessCtrl', ['$scope', '$http', '$controlle
                         if (paramResultDatas[i].paramOperatType == '0') {
                             if (paramResultDatas[i].paramValueRelate != null && paramResultDatas[i].paramValueRelate != '') {
                                 tagContentTemp = '<label style="padding-right: 5px" class="col-md-3 control-label">' + paramResultDatas[i].paramName + '</label>';
-                                //tagContentTemp+='<select id="'+paramResultDatas[i].id+'" class="form-control" onchange="onChangeForGlobal(this)">';
-                                tagContentTemp += '<div class="col-md-9" style="padding-left: 5px;padding-right: 25px"><select id="' + paramResultDatas[i].id + '" class="form-control" onchange="onSingleSelChangeForGlobal(this)">';
+                                //tagContentTemp += '<div class="col-md-9" style="padding-left: 5px;padding-right: 25px"><select id="' + paramResultDatas[i].id + '" class="form-control" onchange="onSingleSelChangeForGlobal(this)">';
+                                tagContentTemp += '<div class="col-md-9" style="padding-left: 5px;padding-right: 25px"><select onchange="onSingleSelChangeForGlobal(this,\''+paramResultDatas[i].id+'\')" class="form-control" >';
                                 tagContentTemp += '<option value="">选择</option>';
                                 for (var x in paramValuesSplitTemp) {
                                     var paramValuesSplitTemp2 = paramValuesSplitTemp[x].split(':');
@@ -111,8 +117,8 @@ infopowerWebApp.controller('reportBusinessCtrl', ['$scope', '$http', '$controlle
                                 tagContent = tagBegin + tagContentTemp + tagEnd;
                             } else {
                                 tagContentTemp = '<label style="padding-right: 5px" class="col-md-3 control-label">' + paramResultDatas[i].paramName + '</label>';
-                                //tagContentTemp+='<select id="'+paramResultDatas[i].id+'" class="form-control" onchange="onChangeForGlobal(this)">';
-                                tagContentTemp += '<div class="col-md-9" style="padding-left: 5px;padding-right: 25px"><select id="' + paramResultDatas[i].id + '" class="form-control" onchange="onSingleSelChangeForGlobal(this)">';
+                                //tagContentTemp += '<div class="col-md-9" style="padding-left: 5px;padding-right: 25px"><select id="' + paramResultDatas[i].id + '" class="form-control" onchange="onSingleSelChangeForGlobal(this)">';
+                                tagContentTemp += '<div class="col-md-9" style="padding-left: 5px;padding-right: 25px"><select onchange="onSingleSelChangeForGlobal(this,\'' + paramResultDatas[i].id + '\')" class="form-control" >';
                                 tagContentTemp += '<option value="">选择</option>';
                                 for (var x in paramValuesSplitTemp) {
                                     tagContentTemp += '<option value="' + paramValuesSplitTemp[x] + '"' + '>' + paramValuesSplitTemp[x] + '</option>'
@@ -135,9 +141,11 @@ infopowerWebApp.controller('reportBusinessCtrl', ['$scope', '$http', '$controlle
                             //$("#demo .list-group").append(tagContent);
                             $("#demo"+$scope.menuid).find(".form-body").append(tagContent);
                         } else if (paramResultDatas[i].paramOperatType == '1') {
+                            var multiId=$scope.menuid+'reportMenuParams' + paramResultDatas[i].id;
+                            //alert('mulId:'+multiId)
                             if (paramResultDatas[i].paramValueRelate != null && paramResultDatas[i].paramValueRelate != '') {
-                                tagContentTemp = '<label style="padding-right: 5px" class="col-md-3 control-label" id="' + paramResultDatas[i].id + '">' + paramResultDatas[i].paramName + '</label>';
-                                tagContentTemp += '<select class="form-control SlectBox" multiple="multiple" id="reportMenuParams' + paramResultDatas[i].id + '"></select>';
+                                tagContentTemp = '<label style="padding-right: 5px" class="col-md-3 control-label" labelId="'+paramResultDatas[i].id+'">' + paramResultDatas[i].paramName + '</label>';
+                                tagContentTemp += '<select class="form-control SlectBox" multiple="multiple" id="'+multiId + '"></select>';
                                 tagContent = tagBegin + tagContentTemp + tagEnd;
 
                                 //$("#demo .list-group").append(tagContent);
@@ -160,31 +168,55 @@ infopowerWebApp.controller('reportBusinessCtrl', ['$scope', '$http', '$controlle
                                     }
                                     reportMenuParams.push(obj);
                                 }
-                                $('#reportMenuParams' + paramResultDatas[i].id).multiselect({
+                                $('#'+multiId).multiselect({
                                     maxHeight: 200,
                                     buttonWidth: '100%',
                                     checkboxName: 'positionBox',
                                     nonSelectedText: $.i18n.prop('page_log_select'),
                                     onChange: function (element, checked) {
-                                        var paramId = $(element).parent().prev("label").attr('id');
+                                        var paramId = $(element).parent().prev("label").attr('labelId');
                                         var selValueTemp = $(element).data('id');
-                                        var hasSelValue = selectRefreshParamMap[paramId];
+                                        //var hasSelValue = selectRefreshParamMap[paramId];
+                                        //alert(globalMenuId)
+                                        var hasSelValue=$('#'+globalMenuId+'paramSelect'+paramId).attr("value");
+                                        //alert('hasSelValue:'+hasSelValue+'&&&&')
                                         if (checked) {
                                             if (hasSelValue) {
-                                                if ($.inArray(selValueTemp, hasSelValue) < 0) {
-                                                    hasSelValue.push(selValueTemp);
+                                                var hasSelValueArray=hasSelValue.split(',');
+                                                if ($.inArray(selValueTemp, hasSelValueArray) < 0) {
+                                                    hasSelValueArray.push(selValueTemp);
                                                 }
+                                                var temp='';
+                                                $.each(hasSelValueArray,function(index,obj){
+                                                    if(hasSelValueArray.length-1==index){
+                                                        temp=temp+hasSelValueArray[index];
+                                                    }else{
+                                                        temp=temp+hasSelValueArray[index]+',';
+                                                    }
+                                                });
+                                                $('#'+globalMenuId+'paramSelect'+paramId).attr("value",temp);
                                             } else {
                                                 var arrayTemp = [];
                                                 arrayTemp[0] = $(element).data('id');
-                                                selectRefreshParamMap[paramId] = arrayTemp;
+                                                $('#'+globalMenuId+'paramSelect'+paramId).attr("value",arrayTemp[0]);
+                                                //selectRefreshParamMap[paramId] = arrayTemp;
                                             }
                                         } else {
-                                            hasSelValue.splice($.inArray(selValueTemp,hasSelValue),1);
+                                            var hasSelValueArray=hasSelValue.split(',');
+                                            hasSelValueArray.splice($.inArray(selValueTemp,hasSelValueArray),1);
+                                            var temp='';
+                                            $.each(hasSelValueArray,function(index,obj){
+                                                if(hasSelValueArray.length-1==index){
+                                                    temp=temp+hasSelValueArray[index];
+                                                }else{
+                                                    temp=temp+hasSelValueArray[index]+',';
+                                                }
+                                            });
+                                            $('#'+globalMenuId+'paramSelect'+paramId).attr("value",temp);
                                         }
                                     }
                                 });
-                                $('#reportMenuParams' + paramResultDatas[i].id).multiselect('dataprovider', reportMenuParams);
+                                $('#'+multiId).multiselect('dataprovider', reportMenuParams);
                                 var style = $('.dropdown-toggle.btn-default').attr("style");
                                 $('.dropdown-toggle.btn-default').attr({style: style + "text-align: left;"});
                                 $('.dropdown-toggle.btn-default').parent().addClass("col-md-9");
@@ -193,8 +225,10 @@ infopowerWebApp.controller('reportBusinessCtrl', ['$scope', '$http', '$controlle
                                 $('.dropdown-toggle.btn-default').css("background-color","white");
 
                             } else {
-                                tagContentTemp = '<label style="padding-right: 5px" class="col-md-3 control-label" id="' + paramResultDatas[i].id + '">' + paramResultDatas[i].paramName + '</label>';
-                                tagContentTemp += '<select class="form-control SlectBox" multiple="multiple" id="reportMenuParams' + paramResultDatas[i].id + '"></select>';
+                                var multiId=$scope.menuid+'reportMenuParams' + paramResultDatas[i].id;
+                                alert('multiId:'+multiId)
+                                tagContentTemp = '<label style="padding-right: 5px" class="col-md-3 control-label" labelId="'+paramResultDatas[i].id+'>' + paramResultDatas[i].paramName + '</label>';
+                                tagContentTemp += '<select class="form-control SlectBox" multiple="multiple" id="'+multiId+ '"></select>';
                                 tagContent = tagBegin + tagContentTemp + tagEnd;
 
                                 //$("#demo .list-group").append(tagContent);
@@ -215,31 +249,55 @@ infopowerWebApp.controller('reportBusinessCtrl', ['$scope', '$http', '$controlle
                                     }
                                     reportMenuParams.push(obj);
                                 }
-                                $('#reportMenuParams' + paramResultDatas[i].id).multiselect({
+                                $('#'+multiId).multiselect({
                                     maxHeight: 200,
                                     buttonWidth: '100%',
                                     checkboxName: 'positionBox',
                                     nonSelectedText: $.i18n.prop('page_log_select'),
                                     onChange: function (element, checked) {
-                                        var paramId = $(element).parent().prev("label").attr('id');
+                                        var paramId = $(element).parent().prev("label").attr('labelId');
                                         var selValueTemp = $(element).data('id');
-                                        var hasSelValue = selectRefreshParamMap[paramId];
+                                        //var hasSelValue = selectRefreshParamMap[paramId];
+                                        //alert(globalMenuId)
+                                        var hasSelValue=$('#'+globalMenuId+'paramSelect'+paramId).attr("value");
+                                        //alert('hasSelValue:'+hasSelValue+'&&&&22')
                                         if (checked) {
-                                            if (hasSelValue) {
-                                                if ($.inArray(selValueTemp, hasSelValue) < 0) {
-                                                    hasSelValue.push(selValueTemp);
+                                            if (hasSelValue){
+                                                var hasSelValueArray=hasSelValue.split(',');
+                                                if ($.inArray(selValueTemp, hasSelValueArray) < 0) {
+                                                    hasSelValueArray.push(selValueTemp);
                                                 }
+                                                var temp='';
+                                                $.each(hasSelValueArray,function(index,obj){
+                                                    if(hasSelValueArray.length-1==index){
+                                                        temp=temp+hasSelValueArray[index];
+                                                    }else{
+                                                        temp=temp+hasSelValueArray[index]+',';
+                                                    }
+                                                });
+                                                $('#'+globalMenuId+'paramSelect'+paramId).attr("value",temp);
                                             } else {
                                                 var arrayTemp = [];
                                                 arrayTemp[0] = $(element).data('id');
-                                                selectRefreshParamMap[paramId] = arrayTemp;
+                                                $('#'+globalMenuId+'paramSelect'+paramId).attr("value",arrayTemp[0]);
+                                                //selectRefreshParamMap[paramId] = arrayTemp;
                                             }
                                         } else {
-                                            hasSelValue.splice($.inArray(selValueTemp,hasSelValue),1);
+                                            var hasSelValueArray=hasSelValue.split(',');
+                                            hasSelValueArray.splice($.inArray(selValueTemp,hasSelValueArray),1);
+                                            var temp='';
+                                            $.each(hasSelValueArray,function(index,obj){
+                                                if(hasSelValueArray.length-1==index){
+                                                    temp=temp+hasSelValueArray[index];
+                                                }else{
+                                                    temp=temp+hasSelValueArray[index]+',';
+                                                }
+                                            });
+                                            $('#'+globalMenuId+'paramSelect'+paramId).attr("value",temp);
                                         }
                                     }
                                 });
-                                $('#reportMenuParams' + paramResultDatas[i].id).multiselect('dataprovider', reportMenuParams);
+                                $('#'+multiId).multiselect('dataprovider', reportMenuParams);
                                 var style = $('.dropdown-toggle.btn-default').attr("style");
                                 $('.dropdown-toggle.btn-default').attr({style: style + "text-align: left;"});
                                 $('.dropdown-toggle.btn-default').parent().addClass("col-md-9");
@@ -272,7 +330,7 @@ infopowerWebApp.controller('reportBusinessCtrl', ['$scope', '$http', '$controlle
                 console.log('reqLocation:' + datas.reqLocation);
 
                 if (datas.reqStatus == "0") {
-                    pageContent = '<iframe id="reportContent2'+$scope.menuid+'" name="reportContent2"   src="' + datas.reqLocation + '" frameborder="no" border="0px" width="100%" height="85%"  margin="0px" ></iframe>';
+                    pageContent = '<iframe id="reportContent2'+$scope.menuid+'" name="reportContent2"   src="' + datas.reqLocation + '" frameborder="no" border="0px" width="100%" height="85%"   margin="0px" ></iframe>';
                     $('#reportContent'+$scope.menuid).append(pageContent);
                 } else {
                     //pageContent = '<iframe id="reportContent2" name="reportContent2" style="padding-left: 10px;"  src="common/error_new.jsp" frameborder="no" border="0px" width="100%" height="100%" margin="0px" ></iframe>';

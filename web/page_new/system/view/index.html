@@ -7,33 +7,35 @@
 <div id="sysRefreshParameterSetting" style="display: none;"  ui-sref=".sysRefreshParameterSetting({id:'20160927105509795'})" ui-sref-active="selected">
     sysRefreshParameterSetting
 </div>
+<div id="pageSidebarMenuForShowGroupId" style="display: none">
+
+</div>
 
 <!-- BEGIN SIDEBAR -->
-<div id="page-sidebar-wrapper" class="page-sidebar-wrapper">
-    <!-- END SIDEBAR -->
-    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-    <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+<!--<div id="page-sidebar-wrapper" class="page-sidebar-wrapper">
+    &lt;!&ndash; END SIDEBAR &ndash;&gt;
+    &lt;!&ndash; DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing &ndash;&gt;
+    &lt;!&ndash; DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed &ndash;&gt;
     <div class="page-sidebar navbar-collapse collapse">
-        <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-hover-submenu " data-keep-expanded="false"
-            data-auto-scroll="true" data-slide-speed="200">
-            <!--<ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-compact " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">-->
+        &lt;!&ndash;<ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-hover-submenu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">&ndash;&gt;
+        <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-compact " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
 
         </ul>
-        <!-- END SIDEBAR MENU -->
+        &lt;!&ndash; END SIDEBAR MENU &ndash;&gt;
     </div>
-    <!-- END SIDEBAR -->
-</div>
+    &lt;!&ndash; END SIDEBAR &ndash;&gt;
+</div>-->
 <!-- END SIDEBAR -->
 <!-- BEGIN CONTENT -->
-<div id="page-content-wrapper" class="page-content-wrapper">
+<!--<div id="page-content-wrapper" class="page-content-wrapper">-->
     <!--todo 导航标签页_begin-->
     <!--todo 导航标签页_end-->
     <!-- BEGIN CONTENT BODY -->
     <div id="page-content" class="page-content">
         <ul id="navTabsId" class="nav nav-tabs" role="tablist"
-            style="background-color: #ebebeb;padding:0;margin-bottom: 0;border-bottom: 0px">
+            style="background-color: #ebebeb;padding:0;margin-bottom: 0;border-bottom: 0px;position: fixed;z-index: 995;width: 100%">
             <li role="presentation" class="active" id="tab_seed_mainId"
-                style="position: relative;padding:4px 20px 0px 15px;border: 0">
+                style="position: relative;padding:2px 20px 0px 15px;border: 0">
                 <span ui-sref=".main" ui-sref-active="selected" onclick="mainTabClick(this)" role="tab"
                       data-toggle="tab">{{i18n('page_system_homepage')}}</span>
                 <i title="{{i18n('page_system_full_screen_display')}}" class="fa fa-search-plus"
@@ -200,7 +202,7 @@
             </div>
         </div>
     </div>
-</div>
+<!--</div>-->
 <!-- END CONTENT -->
 <!-- BEGIN QUICK SIDEBAR -->
 <!--todo 右上角按钮内容-->
@@ -210,35 +212,20 @@
         //temp1 = '<ul class="treeview-menu">';
         temp1 = '<ul class="sub-menu">';
         $.each(menuChildObj, function (i, item) {
-            if (typeof menuChildObj.menuChild != 'undefined') {
-                temp1 = temp1 + '<li class="nav-item  ">';
-            } else {
-                temp1 = temp1 + '<li>';
-            }
             if (item.menuType == '01') {
                 if (item.menuAttribute == '0') {
-                    temp1 = temp1 + '<a class="nav-link " id="' + item.id + '" href="javascript:return false;"><span class="title" id="spanId"' + item.id + '>' + item.menuName + '</span></a>';
                 } else {
-//                    temp1 = temp1 + '<a id="' + item.id + '" href="#' + item.menuUrl + '/' + item.id + '"onclick="add(this);" class="nav-link "><span class="title" id="spanId' + item.id + '">' + item.menuName + '</span></a>';
                     var menuUrl = item.menuUrl.replace('/', '');
-//                    temp1 = temp1 + '<a ui-sref=".'+menuUrl+'({id:'+item.id +'})" ui-sref-active="selected" href="javascript:return false;" id="' + item.id + '" ' + 'onclick="add(this);" class="nav-link "><span class="title" id="spanId' + item.id + '">' + item.menuName + '</span></a>';
-                    temp1 = temp1 + '<a ui-sref=".' + menuUrl + '({id:\'' + item.id + '\'})" ui-sref-active="selected" href="javascript:return false;" reportId="'+ item.id + '" id="' + item.id + '" ' + 'onclick="add(this);" class="nav-link "><span class="title" id="spanId' + item.id + '">' + item.menuName + '</span></a>';
-
+                    temp1 = temp1 + '<div id="'+item.id +'ForShowId" style="display: none;" ui-sref=".' + menuUrl + '({id:\'' + item.id + '\'})" ui-sref-active="selected"></div>';
                 }
             } else if (item.menuType == '02') {
                 if (item.menuAttribute == '0') {
-                    temp1 = temp1 + '<a class="nav-link " id="' + item.id + '" href="javascript:return false;"><span class="title" id="spanId"' + item.id + '>' + item.menuName + '</span></a>';
                 } else {
-//                    temp1 = temp1 + '<a id="' + item.id + '"  href="#/reportBusiness/' + item.id + '"onclick="add(this);" class="nav-link "><span class="title" id="spanId' + item.id + '">' + item.menuName + '</span></a>';
-//                       temp1 = temp1 + '<a ui-sref=".reportBusiness({id:'+item.id +'})" ui-sref-active="selected" href="javascript:return false;" id="' + item.id + '" ' + 'onclick="add(this);" class="nav-link "><span class="title" id="spanId' + item.id + '">' + item.menuName + '</span></a>';
-
                     if(reportMenuType=='Default report'||reportMenuType=='Common report'){
-//                        temp1 = temp1 + '<a ui-sref=".reportBusiness' + item.id + '({id:\'' + item.id + '\'})" ui-sref-active="selected" href="javascript:return false;" reportId="'+item.id+'" onclick="add(this);" class="nav-link "><span class="title" id="spanId' + item.id + '">' + item.menuName + '</span></a>';
-                        temp1 = temp1 + '<a ui-sref=".reportBusiness' + item.id + '({id:\'' + item.id + '\'})" ui-sref-active="selected" href="javascript:return false;" reportId="'+item.id+'" onclick="add(this);" class="nav-link "><span class="title" >' + item.menuName + '</span></a>';
 
                     }else{
-//                        temp1 = temp1 + '<a ui-sref=".reportBusiness' + item.id + '({id:\'' + item.id + '\'})" ui-sref-active="selected" href="javascript:return false;" reportId="'+item.id+'" id="' + item.id + '" ' + 'onclick="add(this);" class="nav-link "><span class="title" id="spanId' + item.id + '">' + item.menuName + '</span></a>';
-                        temp1 = temp1 + '<a ui-sref=".reportBusiness' + item.id + '({id:\'' + item.id + '\'})" ui-sref-active="selected" href="javascript:return false;" reportId="'+item.id+'" id="' + item.id + '" ' + 'onclick="add(this);" class="nav-link "><span class="title" >' + item.menuName + '</span></a>';
+//                        temp1 = temp1 + '<a ui-sref=".reportBusiness' + item.id + '({id:\'' + item.id + '\'})" ui-sref-active="selected" href="javascript:return false;" reportId="'+item.id+'" id="' + item.id + '" ' + 'onclick="add(this);" class="nav-link "><span class="title" >' + item.menuName + '</span></a>';
+                        temp1 = temp1 + '<div id="'+item.id +'ForShowId" style="display: none;" ui-sref=".reportBusiness' + item.id + '({id:\'' + item.id + '\'})" ui-sref-active="selected"></div>';
                     }
                 }
             }
@@ -246,7 +233,6 @@
                 temp1 = temp1 + initLeftMenu(item.menuChild,reportMenuType);
             }
         });
-        temp1 = temp1 + '</li></ul>';
         return temp1;
     }
 
@@ -263,43 +249,12 @@
                 $.each(data.userMenu, function (i, item) {
 //                       alert(item.menuName)
                     var reportMenuType=item.menuNameEn;
-                    if ('Default report' == item.menuNameEn) {
-                        $("#navTabsId li").not(":first").remove();
-                        $("#tab_seed_mainId").addClass("active");
-                        temp1 = temp1 + '<li class="nav-item" style="display: none">';
-                    } else {
-                        temp1 = temp1 + '<li class="nav-item">';
-                    }
                     if (item.menuChild.length > 0) {
-                        //temp1 = temp1 + '<a href="javascript:return false;" ><i class="' + item.menuIcon + '"></i> <span>' + item.menuName + '</span><i class="fa fa-angle-right pull-right"></i></a>';
-                        temp1 = temp1 + '<a href="javascript:;" class="nav-link nav-toggle"><i class="' + item.menuIcon + '"></i><span class="title">' + item.menuName + '</span><span class="arrow"></span></a>';
-
                         temp1 = temp1 + initLeftMenu(item.menuChild,reportMenuType);
-                        if ('Default report' == item.menuNameEn) {
-                            $.each(item.menuChild, function (i, itemTemp) {
-                                var id = "tab_seed_" + itemTemp.id;
-                                if (!$('#' + id)[0]) {
-                                    var li_tab = '<li style="margin-top: 1px;padding: 2px 0px 0px 2px;" role="presentation" class="" id="' + id + '"><span onclick="controlTabClick(' + '\'' + itemTemp.id + '\'' + ')"  role="tab" data-toggle="tab" style="position: relative;padding:2px 20px 0px 15px">' + itemTemp.menuName;
-                                    li_tab = li_tab + '</span><i title="全屏显示" class="fa fa-search-plus " tabenlarge="enlarge' + id + '"  onclick="closableTab.enlargeTab(this)"></i><i title="恢复正常显示" class="fa fa-search-minus" tabenlarge="enlargeResize' + id + '" style="display: none" onclick="closableTab.resizeTab(this)"></i><i title="关闭当前窗口" class="fa fa-close small" tabclose="' + id + '"  onclick="closableTab.closeTab(this)"></i></li> ';
-
-                                    $('#navTabsId').append(li_tab);
-                                }
-                            });
-                        }
-                    } else {
-                        //temp1 = temp1 + '<a href="javascript:return false;" ><i class="' + item.menuIcon + '"></i> <span>' + item.menuName + '</span></a>';
-                        temp1 = temp1 + '<a href="javascript:;" class="nav-link nav-toggle"><i class="' + item.menuIcon + '"></i><span class="title">' + item.menuName + '</span><span class="arrow"></span></a>';
                     }
-                    temp1 = temp1 + '</li>';
-//                       alert(temp1)
                 });
-                /*$(".sidebar-menu").empty();
-                 $(".sidebar-menu").html(temp1);*/
-                $(".page-sidebar-menu").empty();
-//                   alert(temp1)
-                $(".page-sidebar-menu").html(temp1);
-
-
+                $("#pageSidebarMenuForShowGroupId").empty();
+                $("#pageSidebarMenuForShowGroupId").html(temp1);
             }
         });
     }

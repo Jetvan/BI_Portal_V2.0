@@ -95,7 +95,8 @@ infopowerWebApp.controller('sysCommonReportSettingCtrl', ['$scope', '$http', '$c
                     $('#successModal').modal('show');
                     $('#btnSave').click(function () {
                         $scope.getMenuList();
-                        $scope.createLeftMenu();
+                        //$scope.createLeftMenu();
+                        $scope.createLeftMenuForPersonalSetting();
                     });
                 });
             });
@@ -119,7 +120,8 @@ infopowerWebApp.controller('sysCommonReportSettingCtrl', ['$scope', '$http', '$c
                     $('#successModal').modal('show');
                     $('#btnSave').click(function () {
                         $scope.getMenuList();
-                        $scope.createLeftMenu();
+                        //$scope.createLeftMenu();
+                        $scope.createLeftMenuForPersonalSetting();
                     });
                 });
             });

@@ -21,3 +21,12 @@ window.onload = function () {
 
     //
 }
+function cutChangeClicked(thisObj) {
+    if($(thisObj).hasClass('menu-toggler-left')){
+        $(thisObj).removeClass('menu-toggler-left');
+        $(thisObj).addClass('menu-toggler-right');
+    }else if($(thisObj).hasClass('menu-toggler-right')){
+        $(thisObj).removeClass('menu-toggler-right');
+        $(thisObj).addClass('menu-toggler-left');
+    }
+}

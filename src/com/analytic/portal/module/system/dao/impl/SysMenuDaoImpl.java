@@ -273,6 +273,10 @@ public class SysMenuDaoImpl implements SysMenuDao {
 		List<SysMenu> list=new ArrayList<>();
 		String hqlTemp=" select t2.* from sys_user_report_setting as t1 inner JOIN sys_menu as t2 on t1.menu_id=t2.id ";
 		hqlTemp+=" where t1.user_id='"+userId+"' and t1.setting_type='"+settingType+"'";
+		hqlTemp+=" and t2.id in";
+		hqlTemp+="(SELECT menu_id from  sys_role_menu  where role_id in( " +
+				"SELECT role_id from sys_user_role where user_id='"+userId+"' and role_id in( " +
+				"SELECT id from sys_role where is_delete='0' and role_status='1')))";
 		hqlTemp+="ORDER BY t2.menu_order ASC";
 		list= (List<SysMenu>) iBaseDao.getListBySql(hqlTemp,SysMenu.class);
 		return list;
