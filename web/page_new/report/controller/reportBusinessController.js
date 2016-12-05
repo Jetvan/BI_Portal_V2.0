@@ -314,7 +314,7 @@ infopowerWebApp.controller('reportBusinessCtrl', ['$scope', '$http', '$controlle
                 document.getElementById("demo"+$scope.menuid).style.display="block";
             });
 
-            var h = parseInt(document.body.clientHeight) + 90;
+            //var h = parseInt(document.body.clientHeight) + 90;
             //判断是横向，还是纵向
             /*if ($('#main-sidebar').length>0){
              $('#main-sidebar').hide();
@@ -322,19 +322,23 @@ infopowerWebApp.controller('reportBusinessCtrl', ['$scope', '$http', '$controlle
              h = h-50;
              }*/
 
-            $('#reportContent'+$scope.menuid).height(h);
+            //$('#reportContent'+$scope.menuid).height(h);
             var pageContent = '<div id="load'+$scope.menuid+'" align="center" style="position: fixed;top: 60%;left: 50%;width:50%;height: 50%;-webkit-transform: translateX(-50%) translateY(-50%);" xmlns="http://www.w3.org/1999/html"><div><img src="static/img/loadReport/progressbar.gif" ></div><div>loading...</div></div></div>';
             $('#reportContent'+$scope.menuid).html(pageContent);
             $scope.getApi('sysMenu/getReportMenuPage.do', {menuId: $scope.menuid}, function (datas) {
                 alert(datas.reqLocation);
                 console.log('reqLocation:' + datas.reqLocation);
-
+                //alert("clientWidth:"+document.documentElement.clientWidth);
+                //alert("clientHeight:"+document.documentElement.clientHeight );
+                var clientHeightTemp= parseInt(document.documentElement.clientHeight)+parseInt($('#navTabsId').height() )
+                //alert("clientHeight2:"+clientHeightTemp);
                 if (datas.reqStatus == "0") {
-                    pageContent = '<iframe id="reportContent2'+$scope.menuid+'" name="reportContent2"   src="' + datas.reqLocation + '" frameborder="no" border="0px" width="100%" height="85%"   margin="0px" ></iframe>';
+                    //pageContent = '<iframe id="reportContent2'+$scope.menuid+'" name="reportContent2'+$scope.menuid+'"   src="' + datas.reqLocation + '" frameborder="no" border="0px" width="100%" height="71%"   margin="0px" ></iframe>';
+                    pageContent = '<iframe id="reportContent2'+$scope.menuid+'" name="reportContent2'+$scope.menuid+'"   src="' + datas.reqLocation + '" frameborder="no" border="0px" width="100%" height="'+clientHeightTemp+'"   margin="0px" ></iframe>';
                     $('#reportContent'+$scope.menuid).append(pageContent);
                 } else {
                     //pageContent = '<iframe id="reportContent2" name="reportContent2" style="padding-left: 10px;"  src="common/error_new.jsp" frameborder="no" border="0px" width="100%" height="100%" margin="0px" ></iframe>';
-                    pageContent = '<iframe id="reportContent2'+$scope.menuid+'" name="reportContent2"   src="http://www.sina.com.cn/" frameborder="no" border="0px" width="100%" height="100%" margin="0px" ></iframe>';
+                    pageContent = '<iframe id="reportContent2'+$scope.menuid+'" name="reportContent2'+$scope.menuid+'"   src="http://www.sina.com.cn/" frameborder="no" border="0px" width="100%" height="100%" margin="0px" ></iframe>';
                     $('#reportContent'+$scope.menuid).append(pageContent);
                 }
                /* var ifm = document.getElementById("reportContent2"+$scope.menuid);
@@ -345,7 +349,6 @@ infopowerWebApp.controller('reportBusinessCtrl', ['$scope', '$http', '$controlle
                 }*/
                 /*进度条*/
                 var iframe01 = document.getElementById("reportContent2"+$scope.menuid);
-
                 var load01 = document.getElementById("load"+$scope.menuid);
                 iframe01.style.display = "none";
                 if (iframe01.attachEvent) {

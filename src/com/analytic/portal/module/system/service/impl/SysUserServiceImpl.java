@@ -541,22 +541,28 @@ public class SysUserServiceImpl implements SysUserService {
 
         try {
             //window2008 R2 AD IP 192.168.6.89
-            String ad_name = ConfigUtil.get("ad.name");
+//            String ad_name = ConfigUtil.get("ad.name");
             //注意用户名的写法：domain\User 或 User@domain.com
-            String adminName = ad_name + adName;
-            String adminPassword = password;
+//            String adminName = ad_name + adName;
+//            String adminPassword = password;
 
             HashEnv.put(Context.SECURITY_AUTHENTICATION, "simple"); //LDAP访问安全级别
-            HashEnv.put(Context.SECURITY_PRINCIPAL, adminName); //AD User
-            HashEnv.put(Context.SECURITY_CREDENTIALS, adminPassword); //AD Password
+            /*HashEnv.put(Context.SECURITY_PRINCIPAL, adminName); //AD User
+            HashEnv.put(Context.SECURITY_CREDENTIALS, adminPassword); //AD Password*/
+            /*HashEnv.put(Context.SECURITY_PRINCIPAL, "uid=bxsyszlgl,ou=applications,o=hisense.com,o=isp"); //AD User
+            HashEnv.put(Context.SECURITY_CREDENTIALS, "Bx@SysZL!23"); //AD Password*/
+            HashEnv.put(Context.SECURITY_PRINCIPAL, "uid="+adName+",ou=applications,o=hisense.com,o=isp"); //AD User
+            HashEnv.put(Context.SECURITY_CREDENTIALS, password); //AD Password
             HashEnv.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory"); //LDAP工厂类
             HashEnv.put(Context.PROVIDER_URL, LDAP_URL);
 
             LdapContext ctx = new InitialLdapContext(HashEnv, null);
             SearchControls searchCtls = new SearchControls();
             searchCtls.setSearchScope(SearchControls.SUBTREE_SCOPE);
-            String searchFilter = "sAMAccountName=lwang168";
-            String searchBase = "DC=ap,DC=jnj,DC=com";
+            /*String searchFilter = "sAMAccountName=lwang168";
+            String searchBase = "DC=ap,DC=jnj,DC=com";*/
+            String searchFilter = "(|(&(objectClass=person)(!(nsaccountlock=true))(departmentNumber=jd_bx*))(uid=yujie)(uid=huangxiaojian)(uid=jiashaoqian))";
+            String searchBase = "ou=People,o=hisense.com,o=isp";
             NamingEnumeration answer = ctx.search(searchBase, searchFilter, searchCtls);
             if (!(answer == null || answer.equals(null))) {
                 ctx.close();

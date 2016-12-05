@@ -307,7 +307,6 @@ baseModule.controller('baseCtrl', ['$scope', '$http',
                 }
                 if (item.menuType == '01') {
                     if (item.menuAttribute == '0') {
-
                         //temp1 = temp1 + '<a id="' + item.id + '" href="javascript:return false;"><span id="spanId"' + item.id + '>' + item.menuName + '</span></a>';
                         temp1 = temp1 + '<a class="nav-link " id="' + item.id + '" href="javascript:return false;"><span class="title" id="spanId"' + item.id + '>' + item.menuName + '</span></a>';
                     } else {

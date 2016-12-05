@@ -10,7 +10,7 @@
         selectRefreshParamMap[id] = $(objSel).val();
     }
 
-    function iFrameHeight() {
+    /*function iFrameHeight() {
         var ifm = document.getElementById("reportContent2");
 //        var ifm = $("iframe[id^='reportContent2']");
         var subWeb = document.frames ? document.frames["reportContent2"].document : ifm.contentDocument;
@@ -18,7 +18,7 @@
             ifm.height = subWeb.body.scrollHeight;
             ifm.width = subWeb.body.scrollWidth;
         }
-    }
+    }*/
 
     function addGolablRefreshParam() {
         alert('currentglobalMenuId:'+globalMenuId)
@@ -57,6 +57,8 @@
             }
         });
     }
+
+
 </script>
 <!--<div id="demo" style="display: none">
     <div class="modal-header">
@@ -79,6 +81,7 @@
 </button>
 <script type="text/javascript">
     $(window).resize(function(){
+//        alert('ssdsd')
         $("#load").css({
             position: "absolute",
             left: ($(window).width())/2,

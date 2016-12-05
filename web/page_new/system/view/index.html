@@ -46,7 +46,7 @@
                    style="display: none" onclick="closableTab.resizeTab(this)"></i>
             </li>
         </ul>
-        <div id="contentModelId" class="row" style="margin-left:auto;margin-right: auto">
+        <div id="contentModelId" class="row" style="margin-left:auto;margin-right: auto;">
             <!--<div class="tab-content" style="width:100%;" ng-view>-->
             <!--<ul>
                 <li ui-sref=".main" ui-sref-active="selected">main</li>
@@ -247,10 +247,27 @@
                 var temp1 = '';
 
                 $.each(data.userMenu, function (i, item) {
+                    var reportMenuType=item.menuNameEn;
+                    if ('Default report' == item.menuNameEn) {
+                        $("#navTabsId li").not(":first").remove();
+                        $("#tab_seed_mainId").addClass("active");
+                    }
 //                       alert(item.menuName)
                     var reportMenuType=item.menuNameEn;
                     if (item.menuChild.length > 0) {
                         temp1 = temp1 + initLeftMenu(item.menuChild,reportMenuType);
+
+                        if ('Default report' == item.menuNameEn) {
+                            $.each(item.menuChild, function (i, itemTemp) {
+                                var id = "tab_seed_" + itemTemp.id;
+                                if (!$('#' + id)[0]) {
+                                    var li_tab = '<li style="margin-top: 1px;padding: 2px 0px 0px 2px;" role="presentation" class="" id="' + id + '"><span onclick="controlTabClick(' + '\'' + itemTemp.id + '\'' + ')"  role="tab" data-toggle="tab" style="position: relative;padding:2px 20px 0px 15px">' + itemTemp.menuName;
+                                    li_tab = li_tab + '</span><i title="全屏显示" class="fa fa-search-plus " tabenlarge="enlarge' + id + '"  onclick="closableTab.enlargeTab(this)"></i><i title="恢复正常显示" class="fa fa-search-minus" tabenlarge="enlargeResize' + id + '" style="display: none" onclick="closableTab.resizeTab(this)"></i><i title="关闭当前窗口" class="fa fa-close small" tabclose="' + id + '"  onclick="closableTab.closeTab(this)"></i></li> ';
+
+                                    $('#navTabsId').append(li_tab);
+                                }
+                            });
+                        }
                     }
                 });
                 $("#pageSidebarMenuForShowGroupId").empty();
@@ -272,6 +289,8 @@
                 + '<div class="tab-content" style="width:100%;" ng-show="$state.includes(\'tab.sysRefreshParameterSetting\')" ui-view="sysRefreshParameterSetting"></div>'
                 + '<div class="tab-content" style="width:100%;" ng-show="$state.includes(\'tab.main\')" ui-view="main"></div>';
         $('#contentModelId').empty();
+        $('#contentModelId').css("padding-top",$('#navTabsId').height());
+        $('#contentModelId').css("position","relative");
         $('#contentModelId').append(viewDivContent);
     }
     createLeftMenu();
