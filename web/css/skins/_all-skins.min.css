@@ -2049,7 +2049,7 @@
 
 .skin-green-light .btn-preserve {
     background-color: #40d2b6;
-    border-color: #00904D
+    /*border-color: #00904D*/
 }
 
 .skin-green-light .btn-preserve:hover, .skin-green-light .btn-preserve:active, .skin-green-light .btn-preserve.hover {

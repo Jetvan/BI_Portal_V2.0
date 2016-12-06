@@ -21,15 +21,15 @@
     }*/
 
     function addGolablRefreshParam() {
-        alert('currentglobalMenuId:'+globalMenuId)
+//        alert('currentglobalMenuId:'+globalMenuId)
         var selectRefreshParamMap = {};
         $('#paramSelectContent'+globalMenuId).find('input:hidden').each(function(index,obj){
 //            alert(obj.name+':'+obj.value)
             selectRefreshParamMap[obj.name]=obj.value;
         });
-        $.each(selectRefreshParamMap,function(key,values){
+        /*$.each(selectRefreshParamMap,function(key,values){
          alert(key+':'+values)
-         });
+         });*/
         var strMap = JSON.stringify(selectRefreshParamMap);
         var interfaceName = 'sysUserPersonalizedSetting/confirmGlobalRefreshParamSetting.do';
         $.ajax({
@@ -46,7 +46,7 @@
                     data:{menuId: globalMenuId},
                     dataType: "json",
                     success: function (data) {
-                        alert("哈哈终于成功了:"+data.reqLocation+'%%%');
+//                        alert("成功了:"+data.reqLocation+'%%%');
                         if(data.reqLocation!=null&&data.reqLocation.trim()!='') {
                             var temp = "#reportContent2" + globalMenuId;
 //                        $(temp).attr('src','http://mil.news.sina.com.cn/');
