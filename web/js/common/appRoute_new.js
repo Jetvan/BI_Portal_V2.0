@@ -7,14 +7,9 @@ infopowerWebApp.run(function ($state, $rootScope) {
     $rootScope.$state = $state;
     $rootScope.$on('$stateChangeSuccess',
         function(event, toState, toParams, fromState, fromParams){
-            /*alert('fromState:'+fromState.name+'%%%');
-            console.log('fromState:'+fromState.name)
-            alert('toState:'+toState.name);
-            console.log('toState:'+toState.name);*/
             if (''==fromState.name){
                 $state.go('tab.main');
              }
-            //$templateCache.removeAll();
         });
 })
 

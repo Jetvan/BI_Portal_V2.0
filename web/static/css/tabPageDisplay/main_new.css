@@ -77,3 +77,21 @@
     background-image: url("/static/img/index/menu/right.png");
 }
 
+#pageBody>#page-container>#page-content-wrapper>.page-content-enlarge{
+    margin-left: 34px !important;
+}
+#pageBody>#page-container>#page-sidebar-wrapper>.page-sidebar>.page-sidebar-menu> li > .a-icon-enlarge{
+    padding-left: 6px;
+}
+#pageBody>#page-container>#page-sidebar-wrapper>.page-sidebar-enlarge{
+    width: 34px !important;
+}
+#pageBody>#page-container>#page-sidebar-wrapper>.page-sidebar>.page-sidebar-menu-enlarge{
+    width: 34px !important;
+}
+#pageBody>#page-container>#page-sidebar-wrapper>.page-sidebar>.page-sidebar-menu > li:hover > .sub-menu-enlarge{
+    left:35px;
+}
+#pageBody>#page-container>#page-sidebar-wrapper>.page-sidebar>.page-sidebar-menu > .li-hover-enlarge {
+    width: 229px !important;
+}

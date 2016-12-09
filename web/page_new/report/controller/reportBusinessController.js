@@ -53,12 +53,12 @@ infopowerWebApp.controller('reportBusinessCtrl', ['$scope', '$http', '$controlle
             $('#uiViewReportBusiness'+$scope.menuid).find('.navbar-brand').attr('id','reloadCurrentPage'+$scope.menuid);
 
             $scope.getApi('sysUserPersonalizedSetting/getGlobalParamOfUserList.do', {menuId: $scope.menuid}, function (datas) {
-                //alert('demo');
                 var resultDatas = eval(datas);
                 var paramResultDatas = resultDatas.result;
                 if (paramResultDatas == null || paramResultDatas == "") {
                     //$("#demo"+$scope.menuid).html('<div class="modal-header"><h5 class="modal-title" style="text-align: center">全局参数设置</h5></div><hr><div class="list-group" style="text-align: center; line-height: 500px; font-size: 16px;opacity: 0.8">没有刷新参数!</div>');
-                    $("#demo"+$scope.menuid).html('<div class="modal-header"><h5 class="modal-title" style="text-align: center">全局参数设置</h5></div><hr><div class="list-group" style="text-align: center; line-height: 500px; font-size: 16px;opacity: 0.8"><img src="static/img/globalRefreshParam/noData.png"></div>');
+                    //$("#demo"+$scope.menuid).html('<div class="modal-header"><h5 class="modal-title" style="text-align: center">全局参数设置</h5></div><hr><div class="list-group" style="text-align: center; line-height: 500px; font-size: 16px;opacity: 0.8"><img src="static/img/globalRefreshParam/noData.png"></div><div class="modal-footer" style="margin-top: 50px"><button type="button" class="btn btn-default pull-left" data-dismiss="modal">重置</button><button type="button" class="btn btn-preserve" onclick="addGolablRefreshParam()">刷新</button></div>');
+                    $("#demo"+$scope.menuid).html('<div class="modal-header"><h5 class="modal-title" style="text-align: center">全局参数设置</h5></div><hr><div class=form-body" style="text-align: center; "><img src="static/img/globalRefreshParam/noData.png"></div><div class="modal-footer" style="margin-top: 50px"><button type="button" class="btn btn-default pull-left" data-dismiss="modal">重置</button><button type="button" class="btn btn-preserve" onclick="addGolablRefreshParam()">刷新</button></div>');
                     $("#demo"+$scope.menuid).BootSideMenu({
                         side: "right", // left or right
                         autoClose: true // auto close when page loads
@@ -328,24 +328,22 @@ infopowerWebApp.controller('reportBusinessCtrl', ['$scope', '$http', '$controlle
             $scope.getApi('sysMenu/getReportMenuPage.do', {menuId: $scope.menuid}, function (datas) {
                 alert(datas.reqLocation);
                 console.log('reqLocation:' + datas.reqLocation);
-
+                //alert("clientWidth:"+document.documentElement.clientWidth);
+                //alert("clientHeight:"+document.documentElement.clientHeight );
+                var clientHeightTemp= parseInt(document.documentElement.clientHeight)+parseInt($('#navTabsId').height() )
+                //alert("clientHeight2:"+clientHeightTemp);
                 if (datas.reqStatus == "0") {
-                    pageContent = '<iframe id="reportContent2'+$scope.menuid+'" name="reportContent2"   src="' + datas.reqLocation + '" frameborder="no" border="0px" width="100%" height="85%"   margin="0px" ></iframe>';
+                    //pageContent = '<iframe id="reportContent2'+$scope.menuid+'" name="reportContent2'+$scope.menuid+'"   src="' + datas.reqLocation + '" frameborder="no" border="0px" width="100%" height="71%"   margin="0px" ></iframe>';
+                    pageContent = '<iframe id="reportContent2'+$scope.menuid+'" name="reportContent2'+$scope.menuid+'"   src="' + datas.reqLocation + '" frameborder="no" border="0px" width="100%" height="'+clientHeightTemp+'"   margin="0px" ></iframe>';
                     $('#reportContent'+$scope.menuid).append(pageContent);
                 } else {
                     //pageContent = '<iframe id="reportContent2" name="reportContent2" style="padding-left: 10px;"  src="common/error_new.jsp" frameborder="no" border="0px" width="100%" height="100%" margin="0px" ></iframe>';
-                    pageContent = '<iframe id="reportContent2'+$scope.menuid+'" name="reportContent2"   src="http://www.sina.com.cn/" frameborder="no" border="0px" width="100%" height="100%" margin="0px" ></iframe>';
+                    //pageContent = '<iframe id="reportContent2'+$scope.menuid+'" name="reportContent2'+$scope.menuid+'"   src="http://www.sina.com.cn/" frameborder="no" border="0px" width="100%" height="100%" margin="0px" ></iframe>';
+                    pageContent = '<iframe id="reportContent2'+$scope.menuid+'" name="reportContent2'+$scope.menuid+'"   src="common/error_new.jsp" frameborder="no" border="0px" width="100%" height="100%" margin="0px" ></iframe>';
                     $('#reportContent'+$scope.menuid).append(pageContent);
                 }
-               /* var ifm = document.getElementById("reportContent2"+$scope.menuid);
-                var subWeb = document.frames ? document.frames["reportContent2"+$scope.menuid].document : ifm.contentDocument;
-                if (ifm != null && subWeb != null) {
-                    ifm.height = subWeb.body.scrollHeight;
-                    ifm.width = subWeb.body.scrollWidth;
-                }*/
                 /*进度条*/
                 var iframe01 = document.getElementById("reportContent2"+$scope.menuid);
-
                 var load01 = document.getElementById("load"+$scope.menuid);
                 iframe01.style.display = "none";
                 if (iframe01.attachEvent) {

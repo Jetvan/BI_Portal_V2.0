@@ -93,49 +93,60 @@ var closableTab = {
 	//放大tab
 	enlargeTab:function(item){
 		var val = $(item).attr('tabclose');
-
 		/*$('#page-header').hide();
-		$('#clearfix').hide();
-		$('#page-sidebar-wrapper').hide();
-		$('#page-content').clone(true).insertAfter($('#page-header'));
-		$('#page-container').hide();
-		$('.glyphicon-fullscreen').hide();
-		$('.glyphicon-resize-small').show();*/
-
-
-		$('#page-header').hide();
 		$('#clearfix').hide();
 		$('#page-container').removeClass('page-container');
 		$('#page-sidebar-wrapper').hide();
 		$('#page-content-wrapper').removeClass('page-content-wrapper');
 		$('.fa-search-plus').hide();
+		$('.fa-search-minus').show();*/
+		$('#page-header').hide();
+		$('#clearfix').hide();
+		$('#page-container').css("margin-top","0px");
+		$('#page-content').addClass("page-content-enlarge");
+		$('#page-sidebar-wrapper>.page-sidebar>.page-sidebar-menu>li>a').addClass("a-icon-enlarge");
+		$('#page-sidebar-wrapper>.page-sidebar').addClass("page-sidebar-enlarge");
+		$('#page-sidebar-wrapper>.page-sidebar>.page-sidebar-menu').addClass("page-sidebar-menu-enlarge");
+		$('#page-sidebar-wrapper>.page-sidebar>.page-sidebar-menu>li>ul').addClass("sub-menu-enlarge");
+		$('#pageBody>#page-container>#page-sidebar-wrapper>.page-sidebar>.page-sidebar-menu > li').hover(function(){
+			$(this).addClass('li-hover-enlarge');
+		},function(){
+			$(this).removeClass('li-hover-enlarge');
+		});
+		if($("#sidebarToggerId").hasClass('menu-toggler-left')){
+			$("#sidebarToggerId").click();
+		}
+		$('.fa-search-plus').hide();
 		$('.fa-search-minus').show();
-		//$('#navTabsId').css('background-color','#40d2b6');
-
-		/*$(this).css('display','none');
-		$('#'+val).prev().addClass('active');
-		$('#'+val).prev().find("span").click();
-		$("#"+val).remove();*/
 	},
 
 	//缩小tab
 	resizeTab:function(item){
 		/*$('#page-header').show();
 		$('#clearfix').show();
-		$('#page-sidebar-wrapper').show();
-		$('#page-header').next().remove();
-		$('#page-container').show();
-		$('.glyphicon-fullscreen').show();
-		$('.glyphicon-resize-small').hide();
-*/
-		$('#page-header').show();
-		$('#clearfix').show();
 		$('#page-container').addClass('page-container');
 		$('#page-sidebar-wrapper').show();
 		$('#page-content-wrapper').addClass('page-content-wrapper');
 		$('.fa-search-plus').show();
+		$('.fa-search-minus').hide();*/
+		$('#page-header').show();
+		$('#clearfix').show();
+		//$('#page-container').addClass('page-container');
+		$('#page-container').css("margin-top",'');
+		//$('#page-content').css("margin-left",'');
+		$('#page-content').removeClass("page-content-enlarge");
+		$('#page-sidebar-wrapper>.page-sidebar>.page-sidebar-menu>li>a').removeClass("a-icon-enlarge");
+		$('#page-sidebar-wrapper>.page-sidebar').removeClass("page-sidebar-enlarge");
+		$('#page-sidebar-wrapper>.page-sidebar>.page-sidebar-menu').removeClass("page-sidebar-menu-enlarge");
+		$('#page-sidebar-wrapper>.page-sidebar>.page-sidebar-menu>li>ul').removeClass("sub-menu-enlarge");
+		$('#pageBody>#page-container>#page-sidebar-wrapper>.page-sidebar>.page-sidebar-menu > li').hover(function(){
+			$(this).removeClass('li-hover-enlarge');
+		},function(){
+			//$(this).removeClass('li-hover-enlarge');
+		});
+		/*$('#page-sidebar-wrapper').show();
+		$('#page-content-wrapper').addClass('page-content-wrapper');*/
+		$('.fa-search-plus').show();
 		$('.fa-search-minus').hide();
-		//$('#navTabsId').css('background-color',null);
-		//$('#navTabsId').removeAttr('style');
 	}
 }

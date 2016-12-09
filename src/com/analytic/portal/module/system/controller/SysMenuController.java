@@ -520,6 +520,7 @@ public class SysMenuController extends BaseController {
 				String userId=user.getId();
 				map=bIService.getReportSSO(menuId, userId, request);
 				writerJSON(map, response);
+				System.out.println("reqLocation:"+map.get("reqLocation"));
 			}
 			noLogin(response);
 			
